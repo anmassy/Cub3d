@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 12:53:33 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/20 18:19:37 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/20 22:26:41 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,17 @@ int texture_on_top(t_data *game)
 void send_line_texture(t_data *game, int line, char *msg)
 {
 	if (msg == "NO")
-		game->mesh.north_line = msg;
+		game->mesh->north_line = line;
 	else if (msg == "SO")
-		game->mesh.south_line = msg;
+		game->mesh->south_line = line;
 	else if (msg == "EA")
-		game->mesh.east_line = msg;
+		game->mesh->east_line = line;
 	else if (msg == "WE")
-		game->mesh.west_line = msg;
+		game->mesh->west_line = line;
 	else if (msg == "F")
-		game->mesh.floor_line = msg;
+		game->mesh->floor_line = line;
 	else
-		game->mesh.ceiling_line = msg;
+		game->mesh->ceiling_line = line;
 }
 
 int search_texture(char* word, t_data *game)
@@ -154,10 +154,136 @@ int set_first_row(t_data *game)
 	return (0);
 }
 
-int verif_texture_path(t_data *game)
+int lenght(t_data *game, int line) // compter lee nombre dee ecaractere des path
 {
-	//recuperer seulement la parcelle de path donc a partir du / puis faire open deessu afin de savoir si on peut l'ouvrir ou non, si un des 4 fichier de s'ouvree pas return erreur
+	int j;
+	int count;
+
+	j = 0;
+	count = 0;
+	while (game->val->map[line][j] != '\n')
+	{
+		while (game->val->map[line][j] != '/')
+			j++;
+		while (game->val->map[line][j] != '\n' && game->val->map[line][j] != ' ')
+		{
+			count++;
+			j++;
+		}
+		return (count);
+	}
+	return (0);
+}
+
+char *cut_path(t_data *game, int line) //recuperer seulement la parcelle de path donc a partir du / puis faire open deessu afin de savoir si on peut l'ouvrir ou non, si un des 4 fichier de s'ouvree pas return erreur
+{
+	char *path;
+	int i;
+	int j;
+	int len_path;
+
+	i = 0;
+	j = 0;
+	len_path = lenght(game, line);
+	path = malloc(sizeof(char) * len_path + 1);
+	while (game->val->map[line][j] != '\n')
+	{
+		while (game->val->map[line][j] != '/')
+			j++;
+		while (game->val->map[line][j] != '\n' && game->val->map[line][j] != ' ')
+			path[i++] = game->val->map[line][j++];
+		path[i] = '\0';
+		return (path);
+	}
+	return (NULL);
+}
+
+int	path_xpm(char *path)
+{
+	char	s[4];
+	int		i;
+	int		j;
+
+	printf("path = %s\n", path);
+	i = ft_strlen(path) - 4;
+	j = 0;
+	while (path[i])
+		s[j++] = path[i++];
+	if (ft_strncmp(s, ".xpm", 4) == 0)
+		return (1);
+	printf("%s\n", "le fichier doit etre un .xpm");
+	return (0);
+}
+
+int	valid_path(char *path)
+{
+    int fd;
+	
+	fd = open(path, O_RDONLY);
+	printf("fd = %d\n", fd);
+    if (fd != -1)
+	{
+        close(fd);
+        return (1);
+    }
+	else 
+        return (0);
+}
+
+int check_valid_path(t_data *game)
+{
+	game->mesh->north_path = cut_path(game, game->mesh->north_line);
+	game->mesh->south_path = cut_path(game, game->mesh->south_line);
+	game->mesh->east_path = cut_path(game, game->mesh->east_line);
+	game->mesh->west_path = cut_path(game, game->mesh->west_line);
+	if (path_xpm(game->mesh->north_path) == 0 ||
+		path_xpm(game->mesh->south_path) == 0 ||
+		path_xpm(game->mesh->east_path) == 0 ||
+		path_xpm(game->mesh->west_path) == 0)
+		return (0);
+	if (valid_path(game->mesh->north_path) == 0 ||
+		valid_path(game->mesh->south_path) == 0 ||
+		valid_path(game->mesh->east_path) == 0 ||
+		valid_path(game->mesh->west_path) == 0)
+		return (0);
 	return (1);
+}
+
+char	*cut_color(t_data *game, int line)
+{
+	char *path;
+	int i;
+	int j;
+	int len;
+
+	i = 0;
+	j = 0;
+	len = lenght(game, line);
+	path = malloc(sizeof(char) * len + 1);
+	while (game->val->map[line][j] != '\n')
+	{
+		while (game->val->map[line][j] != ' ')
+			j++;
+		while (game->val->map[line][j] != '\n' && game->val->map[line][j] != ' ')
+			path[i++] = game->val->map[line][j++];
+		path[i] = '\0';
+		return (path);
+	}
+	return (NULL);
+}
+
+int	valid_color(char *line) //je me suis arreter la fonction qui sert a egardr si on est bien entre 0 et 255
+{
+
+}
+
+int check_color(t_data *game)
+{
+	game->mesh->ceiling_pigmentation = cut_color(game, game->mesh->ceiling_line);
+	game->mesh->floor_pigmentation = cut_color(game, game->mesh->floor_line);
+	if (valid_color(game->mesh->ceiling_pigmentation) == 0 ||
+		valid_color(game->mesh->floor_pigmentation) == 0)
+		return (0);
 }
 
 int verif_texture(t_data *game)
@@ -166,7 +292,11 @@ int verif_texture(t_data *game)
 		return (0);
 	if (texture_on_top(game) == 0) //permet de savoir si toute les texture son au top du fichier et qu'il n'y a pas de ligne en trop ou defectueuse avec des caractere random
 		return (0);
-	// pas oublié de verifier si le path de chaque texture exite et est correcte !
+	//penser a check si la ligne du path est correct et que il n'y a pas ecrit un truc chelou avant ou apres le path, idem pour la pigmentation
+	// if (check_valid_path(game) == 0) //permet de savoir si le path des texture est correct
+	// 	return (0);
+	if (check_color(game) == 0)
+		return (0);
 	set_first_row(game); //permet de set la premiere ligne ou commence la map
 	return (1);
 }

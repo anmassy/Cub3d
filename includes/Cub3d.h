@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/20 18:12:21 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/20 22:16:33 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,18 @@ typedef struct s_texture
     int     west_line;
     int     floor_line;
     int     ceiling_line;
+    char    *north_path;
+	char    *south_path;
+	char    *east_path;
+	char    *west_path;
+    char    *ceiling_pigmentation;
+    char    *floor_pigmentation;
 }				t_texture;
 
 typedef struct s_data
 {
     struct s_player *val;
-    struct s_texture mesh;
+    struct s_texture *mesh;
 }t_data;
 
 # ifndef BUFFER_SIZE
