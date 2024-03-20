@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/20 17:23:20 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/20 18:12:21 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,26 @@ typedef struct s_player
     int     last_row;
     char    orientation;
     int		height;
+    int     north_line;
+    int     south_line;
+    int     east_line;
+    int     west_line;
 }				t_player;
+
+typedef struct s_texture
+{
+    int     north_line;
+    int     south_line;
+    int     east_line;
+    int     west_line;
+    int     floor_line;
+    int     ceiling_line;
+}				t_texture;
 
 typedef struct s_data
 {
     struct s_player *val;
+    struct s_texture mesh;
 }t_data;
 
 # ifndef BUFFER_SIZE
@@ -54,7 +69,7 @@ void	display_map(t_data *game);
 int	    len_doc(char *av);
 void	convert_map(t_data *game, char *av);
 int     valid_map(t_data *game);
-
+int ft_strncmp(char *s1, char *s2, size_t n);
 int verif_texture(t_data *game);
 int verif_map(t_data *game);
 

@@ -6,20 +6,19 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:16:08 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/20 17:21:53 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/20 17:53:21 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cub3d.h"
+#include "../includes/Cub3d.h"
 
 void	set_null(t_data *game)
 {
 	game->val->map = NULL;
     game->val->first_row = 0;
     game->val->last_row = 0;
-    game->val->orientation = NULL;
-	game->val->height = 0;
-    
+    // game->val->orientation = NULL;
+	game->val->height = 0;   
 }
 
 t_data	*init_struct(void)
@@ -35,6 +34,6 @@ t_data	*init_struct(void)
 		free(game);
 		return (NULL);
 	}
-	set_nul(game);
+	set_null(game);
 	return (game);
 }

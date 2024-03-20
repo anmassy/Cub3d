@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:16:55 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/20 17:23:34 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/20 17:56:10 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,22 @@ void	convert_map(t_data *game, char *av)
 	close(fd);
 }
 
+int	check_file(char *av)
+{
+	char	s[4];
+	int		i;
+	int		j;
+
+	i = ft_strlen(av) - 4;
+	j = 0;
+	while (av[i])
+		s[j++] = av[i++];
+	if (ft_strncmp(s, ".cub", 4) == 0)
+		return (1);
+	printf("%s\n", "le fichioer doit etre un .cub");
+	return (0);
+}
+
 int main(int ac, char **av)
 {
     t_data *game;
@@ -96,8 +112,8 @@ int main(int ac, char **av)
 		return (0);
 	game = init_struct();
     convert_map(game, av[1]); //converti la map du fichier .cub dans un buffer 
-	if (verif_texture(game) == 0 || verif_map(game) == 0) //effectue les verif nessessaire avant de passer a l'exec
-	    return (0);
+	if (check_file(av[1]) == 0|| verif_texture(game) == 0 || verif_map(game) == 0) //effectue les verif nessessaire avant de passer a l'exec
+		return (0);
 	display_map(game); //affiche la map
     return (0);
 }

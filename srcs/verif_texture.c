@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 12:53:33 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/20 16:56:41 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/20 18:19:37 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,22 @@ int texture_on_top(t_data *game)
 	}
 }
 
+void send_line_texture(t_data *game, int line, char *msg)
+{
+	if (msg == "NO")
+		game->mesh.north_line = msg;
+	else if (msg == "SO")
+		game->mesh.south_line = msg;
+	else if (msg == "EA")
+		game->mesh.east_line = msg;
+	else if (msg == "WE")
+		game->mesh.west_line = msg;
+	else if (msg == "F")
+		game->mesh.floor_line = msg;
+	else
+		game->mesh.ceiling_line = msg;
+}
+
 int search_texture(char* word, t_data *game)
 {
 	int	i;
@@ -80,6 +96,7 @@ int search_texture(char* word, t_data *game)
 			{
 				// printf("texture = %s\ni = %d\nj = %d\n", word, i, j);
 				count++;
+				send_line_texture(game, i, word); //permet de recuperer la ligne ou se trouve les texture afin de pouvoir verifier seulement cette ligne pour le path
 				if (i > game->val->last_row && count == 1)
 					game->val->last_row = i;
 			}
@@ -135,6 +152,12 @@ int set_first_row(t_data *game)
 		i++;
 	}
 	return (0);
+}
+
+int verif_texture_path(t_data *game)
+{
+	//recuperer seulement la parcelle de path donc a partir du / puis faire open deessu afin de savoir si on peut l'ouvrir ou non, si un des 4 fichier de s'ouvree pas return erreur
+	return (1);
 }
 
 int verif_texture(t_data *game)
