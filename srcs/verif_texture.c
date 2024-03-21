@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 12:53:33 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/20 22:26:41 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/21 12:20:58 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ int	path_xpm(char *path)
 	int		i;
 	int		j;
 
-	printf("path = %s\n", path);
+	// printf("path = %s\n", path);
 	i = ft_strlen(path) - 4;
 	j = 0;
 	while (path[i])
@@ -241,11 +241,11 @@ int check_valid_path(t_data *game)
 		path_xpm(game->mesh->east_path) == 0 ||
 		path_xpm(game->mesh->west_path) == 0)
 		return (0);
-	if (valid_path(game->mesh->north_path) == 0 ||
-		valid_path(game->mesh->south_path) == 0 ||
-		valid_path(game->mesh->east_path) == 0 ||
-		valid_path(game->mesh->west_path) == 0)
-		return (0);
+	// if (valid_path(game->mesh->north_path) == 0 ||
+	// 	valid_path(game->mesh->south_path) == 0 ||
+	// 	valid_path(game->mesh->east_path) == 0 ||
+	// 	valid_path(game->mesh->west_path) == 0)
+	// 	return (0);
 	return (1);
 }
 
@@ -260,9 +260,9 @@ char	*cut_color(t_data *game, int line)
 	j = 0;
 	len = lenght(game, line);
 	path = malloc(sizeof(char) * len + 1);
-	while (game->val->map[line][j] != '\n')
+	while (game->val->map[line][j])
 	{
-		while (game->val->map[line][j] != ' ')
+		while (!(game->val->map[line][j] >= '0' && game->val->map[line][j] <= '9'))
 			j++;
 		while (game->val->map[line][j] != '\n' && game->val->map[line][j] != ' ')
 			path[i++] = game->val->map[line][j++];
@@ -272,18 +272,68 @@ char	*cut_color(t_data *game, int line)
 	return (NULL);
 }
 
-int	valid_color(char *line) //je me suis arreter la fonction qui sert a egardr si on est bien entre 0 et 255
+int color_lenght(char *line, int pos)
 {
+	int i;
 
+	i = 0;
+	while (line[pos] != ',' && line[pos] != '\0' && line[pos] != ' ') // changer la condition
+	{
+		if ((line[pos] >= '0' && line[pos] <= '9') || line[i] == '-')
+			i++;
+		pos++;
+	}
+	// printf("len = %d\n", i);
+	return (i);
+}
+
+int range_color(int nb)
+{
+	if (nb >= 0 && nb <= 255)
+		return (1);
+	return (0);
+}
+
+int	valid_color(char *line) //la fonction qui sert a egardr si on est bien entre 0 et 255
+{
+	int i;
+	int j;
+	char *temp;
+	int len;
+
+	i = 0;
+	while (line[i])
+	{
+		len = color_lenght(line, i);
+		temp = malloc (sizeof(char) * len + 1);
+		if (!temp)
+			return (0);
+		j = 0;
+		while (line[i] != ',' && line[i] != '\0' && line[i + 1] != ' ')
+		{
+			if ((line[i] >= '0' && line[i] <= '9') || line[i] == '-')
+				temp[j++] = line[i++];
+		}
+		j = atoi(temp); //refaire atoi
+		// printf("%d\n", j);
+		if (range_color(j) == 0)
+			return (0);
+		free(temp);
+	   	i++;
+	}
+	return (1);
 }
 
 int check_color(t_data *game)
 {
 	game->mesh->ceiling_pigmentation = cut_color(game, game->mesh->ceiling_line);
 	game->mesh->floor_pigmentation = cut_color(game, game->mesh->floor_line);
+	// printf("ceiling = %s\n", game->mesh->ceiling_pigmentation);
+	// printf("floor = %s\n", game->mesh->floor_pigmentation);
 	if (valid_color(game->mesh->ceiling_pigmentation) == 0 ||
 		valid_color(game->mesh->floor_pigmentation) == 0)
 		return (0);
+	return (1);
 }
 
 int verif_texture(t_data *game)
@@ -293,9 +343,9 @@ int verif_texture(t_data *game)
 	if (texture_on_top(game) == 0) //permet de savoir si toute les texture son au top du fichier et qu'il n'y a pas de ligne en trop ou defectueuse avec des caractere random
 		return (0);
 	//penser a check si la ligne du path est correct et que il n'y a pas ecrit un truc chelou avant ou apres le path, idem pour la pigmentation
-	// if (check_valid_path(game) == 0) //permet de savoir si le path des texture est correct
-	// 	return (0);
-	if (check_color(game) == 0)
+	if (check_valid_path(game) == 0) //permet de savoir si le path des texture est correct
+		return (0);
+	if (check_color(game) == 0) //check si la couleur est bonne ou non avec la bonne range [0 - 255]
 		return (0);
 	set_first_row(game); //permet de set la premiere ligne ou commence la map
 	return (1);
