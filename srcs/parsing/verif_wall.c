@@ -6,11 +6,11 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:01:46 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/20 17:04:35 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/21 19:19:08 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Cub3d.h"
+#include "../../includes/Cub3d.h"
 
 int check_up(t_data *game, int i, int j)
 {

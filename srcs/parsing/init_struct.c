@@ -6,11 +6,11 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:16:08 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/20 22:16:01 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/21 19:35:25 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Cub3d.h"
+#include "../../includes/Cub3d.h"
 
 void	set_null(t_data *game)
 {
@@ -23,18 +23,18 @@ void	set_null(t_data *game)
 
 void	set_null2(t_data *game)
 {
-	int     north_line = 0;
-    int     south_line = 0;
-    int     east_line = 0;
-    int     west_line = 0;
-    int     floor_line = 0;
-    int     ceiling_line = 0;
-    char    *north_path = NULL;
-	char    *south_path = NULL;
-	char    *east_path = NULL;
-	char    *west_path = NULL;
-    char    *ceiling_pigmentation = NULL;
-    char    *floor_pigmentation = NULL;
+	game->mesh->north_line = 0;
+    game->mesh->south_line = 0;
+    game->mesh->east_line = 0;
+    game->mesh->west_line = 0;
+    game->mesh->floor_line = 0;
+    game->mesh->ceiling_line = 0;
+    game->mesh->north_path = NULL;
+	game->mesh->south_path = NULL;
+	game->mesh->east_path = NULL;
+	game->mesh->west_path = NULL;
+    game->mesh->ceiling_pigmentation = NULL;
+    game->mesh->floor_pigmentation = NULL;
 }
 
 t_data	*init_struct(void)

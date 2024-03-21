@@ -6,11 +6,11 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:04:35 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/07 13:09:54 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/21 19:18:21 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Cub3d.h"
+#include "../../includes/Cub3d.h"
 
 int	size_line(char *strings, int i)
 {

@@ -6,11 +6,11 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:03:05 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/20 17:49:00 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/21 19:35:49 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Cub3d.h"
+#include "../../includes/Cub3d.h"
 
 
 int	who_is_that_player(t_data *game)
@@ -82,4 +82,5 @@ int verif_map(t_data *game)
 		return (0);
 	if (map_close(game) == 0) //check si la map est bien entourer de mur
 		return (0);
+	return (1);
 }

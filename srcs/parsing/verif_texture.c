@@ -6,11 +6,11 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 12:53:33 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/21 12:20:58 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/21 19:44:32 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Cub3d.h"
+#include "../../includes/Cub3d.h"
 
 int ft_strncmp(char *s1, char *s2, size_t n)
 {
@@ -59,19 +59,20 @@ int texture_on_top(t_data *game)
 			j = 0;
 		}
 	}
+	return (0);
 }
 
 void send_line_texture(t_data *game, int line, char *msg)
 {
-	if (msg == "NO")
+	if (ft_strncmp(msg, "NO", 2) == 0)
 		game->mesh->north_line = line;
-	else if (msg == "SO")
+	else if (ft_strncmp(msg, "SO", 2) == 0)
 		game->mesh->south_line = line;
-	else if (msg == "EA")
+	else if (ft_strncmp(msg, "EA", 2) == 0)
 		game->mesh->east_line = line;
-	else if (msg == "WE")
+	else if (ft_strncmp(msg, "WE", 2) == 0)
 		game->mesh->west_line = line;
-	else if (msg == "F")
+	else if (ft_strncmp(msg, "F",1) == 0)
 		game->mesh->floor_line = line;
 	else
 		game->mesh->ceiling_line = line;

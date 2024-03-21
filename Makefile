@@ -6,15 +6,17 @@
 #    By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 10:00:03 by anmassy           #+#    #+#              #
-#    Updated: 2024/03/07 13:26:35 by anmassy          ###   ########.fr        #
+#    Updated: 2024/03/21 19:40:36 by anmassy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC =	srcs/main.c \
-		srcs/get_next_line_utils.c \
-		srcs/get_next_line.c \
-		srcs/verif_value.c \
-		srcs/verif_wall.c \
+SRC =	srcs/parsing/get_next_line_utils.c \
+		srcs/parsing/get_next_line.c \
+		srcs/parsing/init_struct.c \
+		srcs/parsing/verif_map.c \
+		srcs/parsing/verif_texture.c \
+		srcs/parsing/verif_wall.c \
+		srcs/parsing/main.c \
 
 
 OBJ = $(SRC:.c=.o)
@@ -24,7 +26,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-INCS = -I ./includes -I
+INCS = -I ./includes
 
 all : $(NAME)
 
@@ -32,7 +34,7 @@ all : $(NAME)
 	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(INCS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INCS) $(OBJ) $(LIBC) -o $(NAME)
 
 clean :
 	@$(RM) $(OBJ)

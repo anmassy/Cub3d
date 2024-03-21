@@ -6,11 +6,11 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:19:42 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/20 13:25:22 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/21 19:18:09 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Cub3d.h"
+#include "../../includes/Cub3d.h"
 
 int	ft_strlen(const char *s)
 {

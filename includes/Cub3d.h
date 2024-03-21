@@ -6,12 +6,12 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/21 12:28:14 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/21 19:21:55 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -48,11 +48,11 @@ typedef struct s_texture
     char    *floor_pigmentation;
 }				t_texture;
 
-typedef struct s_data
+typedef struct  s_data
 {
     struct s_player *val;
     struct s_texture *mesh;
-}t_data;
+}               t_data;
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100
