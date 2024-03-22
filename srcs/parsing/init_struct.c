@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:16:08 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/21 19:35:25 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/22 18:06:42 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ void	set_null2(t_data *game)
     game->mesh->floor_pigmentation = NULL;
 }
 
+void	set_null3(t_data *game)
+{
+	game->img->mlx = NULL;
+	game->img->window = NULL;
+}
+
 t_data	*init_struct(void)
 {
 	t_data	*game;
@@ -56,7 +62,14 @@ t_data	*init_struct(void)
 		free(game);
 		return (NULL);
 	}
+	game->img = malloc(sizeof(t_image)); 
+	if (!game->img)
+	{
+		free(game);
+		return (NULL);
+	}
 	set_null(game);
 	set_null2(game);
+	set_null3(game);
 	return (game);
 }

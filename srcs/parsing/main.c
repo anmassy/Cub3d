@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:16:55 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/21 19:18:29 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/22 21:18:42 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,13 @@ int main(int ac, char **av)
 {
     t_data *game;
 
-	if (ac > 2)
+	if (ac != 2)
 		return (0);
 	game = init_struct();
     convert_map(game, av[1]); //converti la map du fichier .cub dans un buffer 
 	if (check_file(av[1]) == 0|| verif_texture(game) == 0 || verif_map(game) == 0) //effectue les verif nessessaire avant de passer a l'exec
 		return (0);
 	display_map(game); //affiche la map
+	creation_de_la_fenetre(game);
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/21 19:21:55 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/22 21:48:10 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,25 @@
 #include <stddef.h>
 #include <unistd.h>
 #include <fcntl.h>
+
+#include "../mlx_linux/mlx.h"
+
+/* TEXTURES */
+# define NO_T "./textures/north_texture.xpm"
+# define SO_T "./textures/south_texture.xpm"
+# define EA_T "./textures/east_texture.xpm"
+# define WE_T "./textures/west_texture.xpm"
+# define FLOOR_T "./images/floor_texture.xpm"
+# define CEILING_T "./images/ceiling_texture.xpm"
+
+/* KEYS */
+# define L 67 //fleche de droite
+# define R 68 //fleche de gauche
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define ESC 65307
 
 typedef struct s_player
 {
@@ -48,10 +67,17 @@ typedef struct s_texture
     char    *floor_pigmentation;
 }				t_texture;
 
+typedef struct  s_image
+{
+    void	*mlx;
+	void	*window;
+}               t_image;
+
 typedef struct  s_data
 {
     struct s_player *val;
     struct s_texture *mesh;
+    struct s_image *img;
 }               t_data;
 
 # ifndef BUFFER_SIZE
@@ -69,6 +95,7 @@ char	*get_next_line(int fd);
 /* init_struct.c */
 void	set_null(t_data *game);
 void	set_null2(t_data *game);
+void	set_null3(t_data *game);
 t_data	*init_struct(void);
 
 /* verif_map.c */
@@ -109,5 +136,8 @@ int	count_line(char *av, t_data *game);
 void	convert_map(t_data *game, char *av);
 int	check_file(char *av);
 int main(int ac, char **av);
+
+/* set_mlx.c */
+void creation_de_la_fenetre(t_data *game);
 
 #endif
