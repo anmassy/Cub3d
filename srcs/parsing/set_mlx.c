@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 19:12:27 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/22 21:50:56 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/22 21:54:52 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	find_key(int key, t_data *game)
 	return (1);
 }
 
-void creation_de_la_fenetre(t_data *game)
+void create_window(t_data *game)
 {
     game->img->mlx = mlx_init();
     if (!game->img->mlx)

@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/22 21:48:10 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/23 11:53:07 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,6 @@ int	check_file(char *av);
 int main(int ac, char **av);
 
 /* set_mlx.c */
-void creation_de_la_fenetre(t_data *game);
+void create_window(t_data *game);
 
 #endif
