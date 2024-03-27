@@ -3,12 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+         #
+#    By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 10:00:03 by anmassy           #+#    #+#              #
-#    Updated: 2024/03/22 21:52:31 by anmassy          ###   ########.fr        #
+#    Updated: 2024/03/27 18:35:53 by lmarchai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 SRC =	srcs/parsing/get_next_line_utils.c \
 		srcs/parsing/get_next_line.c \
