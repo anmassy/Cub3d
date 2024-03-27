@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 12:53:33 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/21 19:44:32 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:34:51 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int lenght(t_data *game, int line) // compter lee nombre dee ecaractere des path
 	count = 0;
 	while (game->val->map[line][j] != '\n')
 	{
-		while (game->val->map[line][j] != '/')
+		while (game->val->map[line][j] != '.')
 			j++;
 		while (game->val->map[line][j] != '\n' && game->val->map[line][j] != ' ')
 		{
@@ -189,7 +189,7 @@ char *cut_path(t_data *game, int line) //recuperer seulement la parcelle de path
 	path = malloc(sizeof(char) * len_path + 1);
 	while (game->val->map[line][j] != '\n')
 	{
-		while (game->val->map[line][j] != '/')
+		while (game->val->map[line][j] != '.')
 			j++;
 		while (game->val->map[line][j] != '\n' && game->val->map[line][j] != ' ')
 			path[i++] = game->val->map[line][j++];
@@ -220,6 +220,7 @@ int	valid_path(char *path)
 {
     int fd;
 	
+	printf("%s", path);
 	fd = open(path, O_RDONLY);
 	printf("fd = %d\n", fd);
     if (fd != -1)
@@ -242,11 +243,11 @@ int check_valid_path(t_data *game)
 		path_xpm(game->mesh->east_path) == 0 ||
 		path_xpm(game->mesh->west_path) == 0)
 		return (0);
-	// if (valid_path(game->mesh->north_path) == 0 ||
-	// 	valid_path(game->mesh->south_path) == 0 ||
-	// 	valid_path(game->mesh->east_path) == 0 ||
-	// 	valid_path(game->mesh->west_path) == 0)
-	// 	return (0);
+	if (valid_path(game->mesh->north_path) == 0 ||
+		valid_path(game->mesh->south_path) == 0 ||
+		valid_path(game->mesh->east_path) == 0 ||
+		valid_path(game->mesh->west_path) == 0)
+		return (0);
 	return (1);
 }
 

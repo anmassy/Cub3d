@@ -1,7 +1,7 @@
-NO ./textures/haut.xpm
-SO ./textures/bas.xpm
-EA ./textures/gauche.xpm
-WE ./textures/droite.xpm
+NO textures/north_texture.xpm
+SO textures/north_texture.xpm
+EA textures/north_texture.xpm
+WE textures/north_texture.xpm
 
 F 220,100,0
 C 225,10,0
