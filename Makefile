@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+         #
+#    By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 10:00:03 by anmassy           #+#    #+#              #
-#    Updated: 2024/03/27 18:35:53 by lmarchai         ###   ########.fr        #
+#    Updated: 2024/03/28 13:34:42 by anmassy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,11 @@ SRC =	srcs/parsing/get_next_line_utils.c \
 		srcs/parsing/verif_map.c \
 		srcs/parsing/verif_texture.c \
 		srcs/parsing/verif_wall.c \
-		srcs/parsing/set_mlx.c \
 		srcs/parsing/main.c \
+		srcs/parsing/verif_color.c \
+		srcs/parsing/verif_path.c \
+		srcs/parsing/ft_utils.c \
+		srcs/parsing/convert_map.c
 
 OBJ = $(SRC:.c=.o)
 

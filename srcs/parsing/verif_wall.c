@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:01:46 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/21 19:19:08 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/28 13:44:42 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int check_up(t_data *game, int i, int j)
 
 int check_down(t_data *game, int i, int j)
 {
-	if (i == game->val->height)
+	if (i == game->val->y)
 		return (0);
 	if (game->val->map[i + 1][j] != '1' && 
 		game->val->map[i + 1][j] != '0' &&
@@ -83,13 +83,12 @@ int map_close(t_data *game)
 					check_left(game, i, j) == 0 ||
 					check_right(game, i, j) == 0)
 				{
-					printf("%s\n", "la map est ouverte");
+					printf("the map is not closed\n");
 					return (0);
 				}
 			j++;
 		}
 		i++;	
 	}
-	printf("%s\n", "map bien fermé");
 	return (1);
 }
