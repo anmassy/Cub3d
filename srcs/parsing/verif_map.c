@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:03:05 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/28 13:22:19 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/28 14:08:49 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int verif_map(t_data *game)
 {
 	if (set_first_row(game) == 0)
 		return (0);
+	set_size_map(game);
 	if (check_value(game) == 0) //check si la map a bieen les bonne valeur
 		return (0);
 	if (map_close(game) == 0) //check si la map est bien entourer de mur

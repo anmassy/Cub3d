@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/28 13:33:13 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/28 14:07:38 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ typedef struct s_player
     int     first_row;
     int     last_row;
     char    orientation;
-    int		height;
+    int     height;
+    int     x;
+    int     y;
 }				t_player;
 
 typedef struct s_texture
@@ -103,6 +105,7 @@ int verif_map(t_data *game);
 /* ft_utils.c */
 int ft_strncmp(char *s1, char *s2, size_t n);
 int	ft_strstr(char *str, char *to_find);
+void set_size_map(t_data *game);
 
 /* verif_texture.c */
 void send_line_texture(t_data *game, int line, char *msg);

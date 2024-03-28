@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:07:46 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/28 13:14:48 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/28 14:07:56 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,27 @@ int	ft_strstr(char *str, char *to_find)
 		c++;
 	}
 	return (0);
+}
+
+void set_size_map(t_data *game)
+{
+	int i;
+	int j;
+	int count;
+	
+	count = 0;
+	i = game->val->first_row;
+	while (game->val->map[i])
+	{
+		j = 0;
+		while (game->val->map[i][j])
+		{
+			if (game->val->map[i][j] == '\n' && j > game->val->x)
+				game->val->x = j;
+			j++;
+		}
+		game->val->y = count;
+		i++;
+		count++;
+	}
 }
