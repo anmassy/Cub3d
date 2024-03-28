@@ -1,10 +1,10 @@
-NO ./textures/north_texture.xpm        
-SO ./textures/north_texture.xpm
-EA ./textures/north_texture.xpm     
-WE ./textures/north_texture.xpm
+NO ./textures/north.xpm        
+SO ./textures/north.xpm
+EA ./textures/north.xpm     
+WE ./textures/north.xpm    
 
-F 220,100,0
-C 225,10,0
+C 225,0,0
+F 100,100,200
 
 111
 11N1

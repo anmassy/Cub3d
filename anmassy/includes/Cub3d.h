@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/28 14:07:38 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/28 21:15:45 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	path_xpm(char *path);
 int verif_path(t_data *game);
 
 /* verif_color.c */
-char *cut_color(t_data *game, int line);
+char *cut_color(t_data *game, int line, char *element);
 int color_lenght(char *line, int pos);
 int range_color(int nb);
 int	valid_color(char *line);
