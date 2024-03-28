@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:01:46 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/21 19:19:08 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/28 11:44:31 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,12 @@ int map_close(t_data *game)
 					check_left(game, i, j) == 0 ||
 					check_right(game, i, j) == 0)
 				{
-					printf("%s\n", "la map est ouverte");
+					printf("the map is not closed\n");
 					return (0);
 				}
 			j++;
 		}
 		i++;	
 	}
-	printf("%s\n", "map bien fermé");
 	return (1);
 }

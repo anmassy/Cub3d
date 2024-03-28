@@ -5,62 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/10 12:53:33 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/27 15:34:51 by anmassy          ###   ########.fr       */
+/*   Created: 2024/03/28 13:09:36 by anmassy           #+#    #+#             */
+/*   Updated: 2024/03/28 13:24:27 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/Cub3d.h"
-
-int ft_strncmp(char *s1, char *s2, size_t n)
-{
-	while(n--)
-	{
-		if (*s1 != *s2)
-			return (*s1 - *s2);
-		if (*s1 == '\0')
-			break;
-		s1++;
-		s2++;
-	}
-	return (0);
-}
-
-int texture_on_top(t_data *game)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (game->val->map[i])
-	{
-		j = 0;
-		while (game->val->map[i][j])
-		{
-			while (game->val->map[i][j] == ' ')
-				j++;
-			if (ft_strncmp(game->val->map[i] + j, "NO", 2) &&
-				ft_strncmp(game->val->map[i] + j, "SO", 2) &&
-				ft_strncmp(game->val->map[i] + j, "EA", 2) &&
-				ft_strncmp(game->val->map[i] + j, "WE", 2) &&
-				ft_strncmp(game->val->map[i] + j, "F", 1) &&
-				ft_strncmp(game->val->map[i] + j, "C", 1) &&
-				ft_strncmp(game->val->map[i] + j, "\n", 1))
-			{
-				printf("%s\n", "les texture ne sont pas au top du fichier ou il y a des caractere genant");
-				return (0);
-			}
-			if (i == game->val->last_row)
-			{
-				printf("%s\n", "les texture sont bien entreposé au top");
-				return (1);	
-			}
-			i++;
-			j = 0;
-		}
-	}
-	return (0);
-}
 
 void send_line_texture(t_data *game, int line, char *msg)
 {
@@ -95,7 +45,6 @@ int search_texture(char* word, t_data *game)
 				j++;
 			if (ft_strncmp(game->val->map[i] + j, word, ft_strlen(word)) == 0)
 			{
-				// printf("texture = %s\ni = %d\nj = %d\n", word, i, j);
 				count++;
 				send_line_texture(game, i, word); //permet de recuperer la ligne ou se trouve les texture afin de pouvoir verifier seulement cette ligne pour le path
 				if (i > game->val->last_row && count == 1)
@@ -103,7 +52,6 @@ int search_texture(char* word, t_data *game)
 			}
 			if (!game->val->map[i + 1])
 			{
-				// printf("last_row =%d\n", game->val->last_row);
 				if (count != 1)
 					return (0);
 				return (1);	
@@ -124,218 +72,43 @@ int all_texture(t_data *game)
 		search_texture("F", game) == 0 ||
 		search_texture("C", game) == 0)
 	{
-		printf("%s\n", "il manque des textures");
+		printf("the file must contain all the following characteristics (NO, SO, EA, WE, F, C)\n");
 		return (0);
 	}
-	printf("%s\n", "toute les textures sont presente");
 	return (1);
 }
 
-int set_first_row(t_data *game)
+int texture_on_top(t_data *game)
 {
 	int	i;
 	int	j;
 
-	i = game->val->last_row + 1;
+	i = 0;
 	while (game->val->map[i])
 	{
 		j = 0;
-		while (game->val->map[i][j] || game->val->map[i][j] == '\n')
+		while (game->val->map[i][j])
 		{
-			if (game->val->map[i][j] != ' ' && game->val->map[i][j] != '\n')
+			while (game->val->map[i][j] == ' ')
+				j++;
+			if (ft_strncmp(game->val->map[i] + j, "NO", 2) &&
+				ft_strncmp(game->val->map[i] + j, "SO", 2) &&
+				ft_strncmp(game->val->map[i] + j, "EA", 2) &&
+				ft_strncmp(game->val->map[i] + j, "WE", 2) &&
+				ft_strncmp(game->val->map[i] + j, "F", 1) &&
+				ft_strncmp(game->val->map[i] + j, "C", 1) &&
+				ft_strncmp(game->val->map[i] + j, "\n", 1))
 			{
-				game->val->first_row = i;
-				// printf("%d\n", game->val->first_row);
-				return (1);
+				printf("one or more elements are out of place or too many in the map\n");
+				return (0);
 			}
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-int lenght(t_data *game, int line) // compter lee nombre dee ecaractere des path
-{
-	int j;
-	int count;
-
-	j = 0;
-	count = 0;
-	while (game->val->map[line][j] != '\n')
-	{
-		while (game->val->map[line][j] != '.')
-			j++;
-		while (game->val->map[line][j] != '\n' && game->val->map[line][j] != ' ')
-		{
-			count++;
-			j++;
-		}
-		return (count);
-	}
-	return (0);
-}
-
-char *cut_path(t_data *game, int line) //recuperer seulement la parcelle de path donc a partir du / puis faire open deessu afin de savoir si on peut l'ouvrir ou non, si un des 4 fichier de s'ouvree pas return erreur
-{
-	char *path;
-	int i;
-	int j;
-	int len_path;
-
-	i = 0;
-	j = 0;
-	len_path = lenght(game, line);
-	path = malloc(sizeof(char) * len_path + 1);
-	while (game->val->map[line][j] != '\n')
-	{
-		while (game->val->map[line][j] != '.')
-			j++;
-		while (game->val->map[line][j] != '\n' && game->val->map[line][j] != ' ')
-			path[i++] = game->val->map[line][j++];
-		path[i] = '\0';
-		return (path);
-	}
-	return (NULL);
-}
-
-int	path_xpm(char *path)
-{
-	char	s[4];
-	int		i;
-	int		j;
-
-	// printf("path = %s\n", path);
-	i = ft_strlen(path) - 4;
-	j = 0;
-	while (path[i])
-		s[j++] = path[i++];
-	if (ft_strncmp(s, ".xpm", 4) == 0)
-		return (1);
-	printf("%s\n", "le fichier doit etre un .xpm");
-	return (0);
-}
-
-int	valid_path(char *path)
-{
-    int fd;
-	
-	printf("%s", path);
-	fd = open(path, O_RDONLY);
-	printf("fd = %d\n", fd);
-    if (fd != -1)
-	{
-        close(fd);
-        return (1);
-    }
-	else 
-        return (0);
-}
-
-int check_valid_path(t_data *game)
-{
-	game->mesh->north_path = cut_path(game, game->mesh->north_line);
-	game->mesh->south_path = cut_path(game, game->mesh->south_line);
-	game->mesh->east_path = cut_path(game, game->mesh->east_line);
-	game->mesh->west_path = cut_path(game, game->mesh->west_line);
-	if (path_xpm(game->mesh->north_path) == 0 ||
-		path_xpm(game->mesh->south_path) == 0 ||
-		path_xpm(game->mesh->east_path) == 0 ||
-		path_xpm(game->mesh->west_path) == 0)
-		return (0);
-	if (valid_path(game->mesh->north_path) == 0 ||
-		valid_path(game->mesh->south_path) == 0 ||
-		valid_path(game->mesh->east_path) == 0 ||
-		valid_path(game->mesh->west_path) == 0)
-		return (0);
-	return (1);
-}
-
-char	*cut_color(t_data *game, int line)
-{
-	char *path;
-	int i;
-	int j;
-	int len;
-
-	i = 0;
-	j = 0;
-	len = lenght(game, line);
-	path = malloc(sizeof(char) * len + 1);
-	while (game->val->map[line][j])
-	{
-		while (!(game->val->map[line][j] >= '0' && game->val->map[line][j] <= '9'))
-			j++;
-		while (game->val->map[line][j] != '\n' && game->val->map[line][j] != ' ')
-			path[i++] = game->val->map[line][j++];
-		path[i] = '\0';
-		return (path);
-	}
-	return (NULL);
-}
-
-int color_lenght(char *line, int pos)
-{
-	int i;
-
-	i = 0;
-	while (line[pos] != ',' && line[pos] != '\0' && line[pos] != ' ') // changer la condition
-	{
-		if ((line[pos] >= '0' && line[pos] <= '9') || line[i] == '-')
+			if (i == game->val->last_row)
+				return (1);	
 			i++;
-		pos++;
-	}
-	// printf("len = %d\n", i);
-	return (i);
-}
-
-int range_color(int nb)
-{
-	if (nb >= 0 && nb <= 255)
-		return (1);
-	return (0);
-}
-
-int	valid_color(char *line) //la fonction qui sert a egardr si on est bien entre 0 et 255
-{
-	int i;
-	int j;
-	char *temp;
-	int len;
-
-	i = 0;
-	while (line[i])
-	{
-		len = color_lenght(line, i);
-		temp = malloc (sizeof(char) * len + 1);
-		if (!temp)
-			return (0);
-		j = 0;
-		while (line[i] != ',' && line[i] != '\0' && line[i + 1] != ' ')
-		{
-			if ((line[i] >= '0' && line[i] <= '9') || line[i] == '-')
-				temp[j++] = line[i++];
+			j = 0;
 		}
-		j = atoi(temp); //refaire atoi
-		// printf("%d\n", j);
-		if (range_color(j) == 0)
-			return (0);
-		free(temp);
-	   	i++;
 	}
-	return (1);
-}
-
-int check_color(t_data *game)
-{
-	game->mesh->ceiling_pigmentation = cut_color(game, game->mesh->ceiling_line);
-	game->mesh->floor_pigmentation = cut_color(game, game->mesh->floor_line);
-	// printf("ceiling = %s\n", game->mesh->ceiling_pigmentation);
-	// printf("floor = %s\n", game->mesh->floor_pigmentation);
-	if (valid_color(game->mesh->ceiling_pigmentation) == 0 ||
-		valid_color(game->mesh->floor_pigmentation) == 0)
-		return (0);
-	return (1);
+	return (0);
 }
 
 int verif_texture(t_data *game)
@@ -344,11 +117,9 @@ int verif_texture(t_data *game)
 		return (0);
 	if (texture_on_top(game) == 0) //permet de savoir si toute les texture son au top du fichier et qu'il n'y a pas de ligne en trop ou defectueuse avec des caractere random
 		return (0);
-	//penser a check si la ligne du path est correct et que il n'y a pas ecrit un truc chelou avant ou apres le path, idem pour la pigmentation
-	if (check_valid_path(game) == 0) //permet de savoir si le path des texture est correct
+	if (verif_path(game) == 0) //permet de savoir si le path des texture est correct
 		return (0);
-	if (check_color(game) == 0) //check si la couleur est bonne ou non avec la bonne range [0 - 255]
+	if (verif_color(game) == 0) //check si la couleur est bonne ou non avec la bonne range [0 - 255]
 		return (0);
-	set_first_row(game); //permet de set la premiere ligne ou commence la map
 	return (1);
 }

@@ -1,14 +1,11 @@
-NO textures/north_texture.xpm
-SO textures/north_texture.xpm
-EA textures/north_texture.xpm
-WE textures/north_texture.xpm
+     NO textures/north_texture.xpm        
+SO      ./textures/north_texture.xpm
+   EA ./textures/north_texture.xpm     
+WE    ./textures/north_texture.xpm
 
 F 220,100,0
-C 225,10,0
+C 225,10,0,00000000000
 
-1111111111
-100011110011
-10001  100011
-100011110011
-1000000000N1
-111111111111
+  1
+11N1
+111
