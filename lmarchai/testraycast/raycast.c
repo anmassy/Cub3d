@@ -207,10 +207,10 @@ void	ft_init_texture(t_data *data)
 	if (data->val.side == 1 && data->val.rayDirY >= 0)
 		data->val.textDir = 3;
 	if (data->val.side == 0)
-		data->val.wallX = data->val.posX + data->val.perpWallDist \
+		data->val.wallX = data->val.posY + data->val.perpWallDist \
 						* data->val.rayDirY;
 	else
-		data->val.wallX = data->val.posY + data->val.perpWallDist \
+		data->val.wallX = data->val.posX + data->val.perpWallDist \
 						* data->val.rayDirX;
 	data->val.wallX -= floor((data->val.wallX));
 }
@@ -229,25 +229,26 @@ void	print_col(t_data *data, int x)
 		drawStart = 0;
 	drawEnd = lineHeight / 2 + screenHeight / 2;
 	if (drawEnd >= screenHeight)
-	drawEnd = screenHeight - 1;
-	data->val.texX = (int)data->val.wallX * (double)data->text[data->val.textDir].width;
+		drawEnd = screenHeight - 1;
+	ft_init_texture(data);
+	data->val.texX = (int)(data->val.wallX * (double)data->text[data->val.textDir].width);
 	if(data->val.side == 0 && data->val.rayDirX > 0) 
 		data->val.texX = data->text[data->val.textDir].width - data->val.texX - 1;
     if(data->val.side == 1 && data->val.rayDirY < 0) 
 		data->val.texX = data->text[data->val.textDir].width - data->val.texX - 1;
 	double step = 1.0 * data->text[data->val.textDir].height / lineHeight;
 	double texPos = (drawStart - screenHeight / 2 + lineHeight / 2) * step;
-	while (y < screenHeight)
+	while (y <= screenHeight)
 	{
 		if (y > drawStart && y < drawEnd)
 		{
 			int texY = (int)texPos & (data->text[data->val.textDir].height - 1);
 			texPos += step;
-			int color = data->text[data->val.textDir].addr[data->text[data->val.textDir].height * texY + data->val.texX];
+			int color = data->text[data->val.textDir].addr[texY * data->text[data->val.textDir].line_len / 4 + data->val.texX];
 			data->img.addr[y * data->img.line_len / 4 + x] = color;
 		}
 		else
-			data->img.addr[y * data->img.line_len / 4 + x] = 0x000000;
+			data->img.addr[y * data->img.line_len / 4 + x] = 0xffffff;
 		y++;
 	}
 }
@@ -317,13 +318,13 @@ int	key_hook(int key, void *dt)
     }
 	if (key == key_left)
     {
-      //both camera direction and camera plane must be rotated
-      double oldDirX = data->val.dirX;
-      data->val.dirX = data->val.dirX * cos(data->val.rotspeed) - data->val.dirY * sin(data->val.rotspeed);
-      data->val.dirY = oldDirX * sin(data->val.rotspeed) + data->val.dirY * cos(data->val.rotspeed);
-      double oldPlaneX = data->val.planeX;
-      data->val.planeX = data->val.planeX * cos(data->val.rotspeed) - data->val.planeY * sin(data->val.rotspeed);
-      data->val.planeY = oldPlaneX * sin(data->val.rotspeed) + data->val.planeY * cos(data->val.rotspeed);
+    	//both camera direction and camera plane must be rotated
+    	double oldDirX = data->val.dirX;
+    	data->val.dirX = data->val.dirX * cos(data->val.rotspeed) - data->val.dirY * sin(data->val.rotspeed);
+    	data->val.dirY = oldDirX * sin(data->val.rotspeed) + data->val.dirY * cos(data->val.rotspeed);
+    	double oldPlaneX = data->val.planeX;
+    	data->val.planeX = data->val.planeX * cos(data->val.rotspeed) - data->val.planeY * sin(data->val.rotspeed);
+    	data->val.planeY = oldPlaneX * sin(data->val.rotspeed) + data->val.planeY * cos(data->val.rotspeed);
     }
 	return (1);
 }
@@ -342,17 +343,16 @@ int main()
 	data.mlx_ptr = mlx_init();
 	
 	data.text = calloc(4, sizeof(t_img));
-	data.text[0].mlx_img = mlx_xpm_file_to_image(data.mlx_ptr, "../textures/eagle.xpm", &data.text->width, &data.text->height);
-	data.text[1].mlx_img = mlx_xpm_file_to_image(data.mlx_ptr, "../textures/greyscale.xpm", &data.text->width, &data.text->height);
-	data.text[2].mlx_img = mlx_xpm_file_to_image(data.mlx_ptr, "../textures/purplestone.xpm", &data.text->width, &data.text->height);
-	data.text[3].mlx_img = mlx_xpm_file_to_image(data.mlx_ptr, "../textures/red.xpm", &data.text->width, &data.text->height);
+	data.text[0].mlx_img = mlx_xpm_file_to_image(data.mlx_ptr, "../textures/eagle.xpm", &data.text[0].width, &data.text[0].height);
+	data.text[1].mlx_img = mlx_xpm_file_to_image(data.mlx_ptr, "../textures/greyscale.xpm", &data.text[1].width, &data.text[1].height);
+	data.text[2].mlx_img = mlx_xpm_file_to_image(data.mlx_ptr, "../textures/purplestone.xpm", &data.text[2].width, &data.text[2].height);
+	data.text[3].mlx_img = mlx_xpm_file_to_image(data.mlx_ptr, "../textures/red.xpm", &data.text[3].width, &data.text[3].height);
 
-	data.text[0].addr = (int *)mlx_get_data_addr(data.text->mlx_img, &data.text->bpp, &data.text->line_len, &data.text->endian);
-	data.text[1].addr = (int *)mlx_get_data_addr(data.text->mlx_img, &data.text->bpp, &data.text->line_len, &data.text->endian);
-	data.text[2].addr = (int *)mlx_get_data_addr(data.text->mlx_img, &data.text->bpp, &data.text->line_len, &data.text->endian);
-	data.text[3].addr = (int *)mlx_get_data_addr(data.text->mlx_img, &data.text->bpp, &data.text->line_len, &data.text->endian);
+	data.text[0].addr = (int *)mlx_get_data_addr(data.text[0].mlx_img, &data.text[0].bpp, &data.text[0].line_len, &data.text[0].endian);
+	data.text[1].addr = (int *)mlx_get_data_addr(data.text[1].mlx_img, &data.text[1].bpp, &data.text[1].line_len, &data.text[1].endian);
+	data.text[2].addr = (int *)mlx_get_data_addr(data.text[2].mlx_img, &data.text[2].bpp, &data.text[2].line_len, &data.text[2].endian);
+	data.text[3].addr = (int *)mlx_get_data_addr(data.text[3].mlx_img, &data.text[3].bpp, &data.text[3].line_len, &data.text[3].endian);
 
-	// printf("%d\n", data.text[0].height);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, screenWidth, screenHeight, "Cub3d");
 	mlx_loop_hook(data.mlx_ptr, &hook, &data);
 	mlx_key_hook(data.win_ptr, &key_hook, &data);
