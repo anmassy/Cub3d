@@ -48,7 +48,12 @@ typedef struct s_val
 	int		textDir;
 	double	wallX;
 	int		texX;
-
+	int		move_up;
+	int		move_down;
+	int		move_left;
+	int		move_right;
+	int		move_cam_left;
+	int		move_cam_right;
 }	t_val;
 
 typedef struct s_img
@@ -70,6 +75,8 @@ typedef struct s_data
 	t_img				img;
 	t_img				*text;
 }	t_data;
+
+void	move(t_data *data);
 
 int worldMap[mapWidth][mapHeight]=
 {
@@ -247,8 +254,10 @@ void	print_col(t_data *data, int x)
 			int color = data->text[data->val.textDir].addr[texY * data->text[data->val.textDir].line_len / 4 + data->val.texX];
 			data->img.addr[y * data->img.line_len / 4 + x] = color;
 		}
+		else if (y > drawEnd)
+			data->img.addr[y * data->img.line_len / 4 + x] = 0xD27030;
 		else
-			data->img.addr[y * data->img.line_len / 4 + x] = 0xffffff;
+			data->img.addr[y * data->img.line_len / 4 + x] = 0x6FC2D3;
 		y++;
 	}
 }
@@ -279,34 +288,49 @@ int	hook(void *dt)
 	data->img.addr = (int *)mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, &data->img.line_len, &data->img.endian);
 	raycast(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0,0);
+	move(data);
 	return (0);
 }
 
 #define key_up 122
 #define key_down 115
-#define key_right 65363
-#define key_left 65361
+#define key_right 100
+#define key_left 113
+#define key_right_arrow 65363
+#define key_left_arrow 65361
 
-int	key_hook(int key, void *dt)
+void	move(t_data *data)
 {
-	t_data *data;
-
-	data = dt;
-	if (key == key_up)
+	if (data->val.move_up == 1)
     {
 		if(!worldMap[(int)(data->val.posX + data->val.dirX * data->val.movespeed)][(int)data->val.posY])
 	  		data->val.posX += data->val.dirX * data->val.movespeed;
       	if(!worldMap[(int)data->val.posX][(int)( data->val.posY +  data->val.dirY *  data->val.movespeed)]) 
-	  		data->val.posY +=  data->val.dirY *  data->val.movespeed;
+	  		data->val.posY +=  data->val.dirY * data->val.movespeed;
     }
-	if (key == key_down)
+	if (data->val.move_down == 1)
     {
 		if(!worldMap[(int)(data->val.posX - data->val.dirX * data->val.movespeed)][(int)data->val.posY])
 	  		data->val.posX -= data->val.dirX * data->val.movespeed;
       	if(!worldMap[(int)data->val.posX][(int)( data->val.posY -  data->val.dirY *  data->val.movespeed)]) 
 	  		data->val.posY -=  data->val.dirY *  data->val.movespeed;
     }
-	if (key == key_right)
+	if (data->val.move_left == 1)
+	{
+	    if (!worldMap[(int)(data->val.posX - data->val.dirY * data->val.movespeed)][(int)data->val.posY])
+	        data->val.posX -= data->val.dirY * data->val.movespeed;
+	    if (!worldMap[(int)data->val.posX][(int)(data->val.posY + data->val.dirX * data->val.movespeed)]) 
+	        data->val.posY += data->val.dirX * data->val.movespeed;
+	}
+
+	if (data->val.move_right == 1)
+	{
+	    if (!worldMap[(int)(data->val.posX + data->val.dirY * data->val.movespeed)][(int)data->val.posY])
+	        data->val.posX += data->val.dirY * data->val.movespeed;
+	    if (!worldMap[(int)data->val.posX][(int)(data->val.posY - data->val.dirX * data->val.movespeed)]) 
+	        data->val.posY -= data->val.dirX * data->val.movespeed;
+	}
+	if (data->val.move_cam_right == 1)
     {
     	//both camera direction and camera plane must be rotated
     	double oldDirX = data->val.dirX;
@@ -316,7 +340,7 @@ int	key_hook(int key, void *dt)
     	data->val.planeX = data->val.planeX * cos(-data->val.rotspeed) - data->val.planeY * sin(-data->val.rotspeed);
     	data->val.planeY = oldPlaneX * sin(-data->val.rotspeed) + data->val.planeY * cos(-data->val.rotspeed);
     }
-	if (key == key_left)
+	if (data->val.move_cam_left == 1)
     {
     	//both camera direction and camera plane must be rotated
     	double oldDirX = data->val.dirX;
@@ -326,6 +350,43 @@ int	key_hook(int key, void *dt)
     	data->val.planeX = data->val.planeX * cos(data->val.rotspeed) - data->val.planeY * sin(data->val.rotspeed);
     	data->val.planeY = oldPlaneX * sin(data->val.rotspeed) + data->val.planeY * cos(data->val.rotspeed);
     }
+}
+
+int	key_hook(int key, void *dt)
+{
+	t_data *data = dt;
+
+	if (key == key_up)
+		data->val.move_up = 1;
+	if (key == key_down)
+		data->val.move_down = 1;
+	if (key == key_left)
+		data->val.move_left = 1;
+	if (key == key_right)
+		data->val.move_right = 1;
+	if (key == key_left_arrow)
+		data->val.move_cam_left = 1;
+	if (key == key_right_arrow)
+		data->val.move_cam_right = 1;
+	return (1);
+}
+
+int	key_release(int key, void *dt)
+{
+	t_data *data = dt;
+
+	if (key == key_up)
+		data->val.move_up = 0;
+	if (key == key_down)
+		data->val.move_down = 0;
+	if (key == key_left)
+		data->val.move_left = 0;
+	if (key == key_right)
+		data->val.move_right = 0;
+	if (key == key_left_arrow)
+		data->val.move_cam_left = 0;
+	if (key == key_right_arrow)
+		data->val.move_cam_right = 0;
 	return (1);
 }
 
@@ -336,9 +397,15 @@ int main()
 	data.val.posX = 22, data.val.posY = 12; //x and y start position
 	data.val.dirX = -1, data.val.dirY = 0; //initial direction vector
 	data.val.planeX = 0, data.val.planeY = 0.66; //the 2d raycaster version of camera plane
-	data.val.movespeed = 0.5;
-	data.val.rotspeed = 0.3;
+	data.val.movespeed = 0.15;
+	data.val.rotspeed = 0.03;
 	data.img.mlx_img = NULL;
+	data.val.move_up = 0;
+	data.val.move_down = 0;
+	data.val.move_left = 0;
+	data.val.move_right = 0;
+	data.val.move_cam_left = 0;
+	data.val.move_cam_right = 0;
 
 	data.mlx_ptr = mlx_init();
 	
@@ -354,7 +421,8 @@ int main()
 	data.text[3].addr = (int *)mlx_get_data_addr(data.text[3].mlx_img, &data.text[3].bpp, &data.text[3].line_len, &data.text[3].endian);
 
 	data.win_ptr = mlx_new_window(data.mlx_ptr, screenWidth, screenHeight, "Cub3d");
+	mlx_hook(data.win_ptr, 2, 1L << 0, key_hook, &data);
 	mlx_loop_hook(data.mlx_ptr, &hook, &data);
-	mlx_key_hook(data.win_ptr, &key_hook, &data);
+	mlx_hook(data.win_ptr, 3, 1L << 1, key_release, &data);
 	mlx_loop(data.mlx_ptr);
 }
