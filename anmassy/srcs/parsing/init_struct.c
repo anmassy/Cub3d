@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:16:08 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/28 13:46:14 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/30 17:46:45 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,12 @@ void	set_null(t_data *game)
 
 void	set_null2(t_data *game)
 {
-	game->mesh->north_line = 0;
-    game->mesh->south_line = 0;
-    game->mesh->east_line = 0;
-    game->mesh->west_line = 0;
-    game->mesh->floor_line = 0;
-    game->mesh->ceiling_line = 0;
-    game->mesh->north_path = NULL;
-	game->mesh->south_path = NULL;
-	game->mesh->east_path = NULL;
-	game->mesh->west_path = NULL;
-    game->mesh->ceiling_pigmentation = NULL;
-    game->mesh->floor_pigmentation = NULL;
-}
-
-void	set_null3(t_data *game)
-{
-	game->img->mlx = NULL;
-	game->img->window = NULL;
+    game->mesh->n_path = NULL;
+	game->mesh->s_path = NULL;
+	game->mesh->e_path = NULL;
+	game->mesh->w_path = NULL;
+    game->mesh->c_color = NULL;
+    game->mesh->f_color = NULL;
 }
 
 t_data	*init_struct(void)
@@ -64,14 +52,7 @@ t_data	*init_struct(void)
 		free(game);
 		return (NULL);
 	}
-	game->img = malloc(sizeof(t_image)); 
-	if (!game->img)
-	{
-		free(game);
-		return (NULL);
-	}
 	set_null(game);
 	set_null2(game);
-	set_null3(game);
 	return (game);
 }

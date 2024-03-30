@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:16:55 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/28 14:06:33 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/30 17:44:53 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,21 @@ void	display_map(t_data *game)
 	int	i;
 
 	i = 0;
-	while (game->val->map[i])
+	while (game->val->m[i])
 	{
 		j = 0;
-		while (game->val->map[i][j])
+		while (game->val->m[i][j])
 		{
-			printf("%c ", game->val->map[i][j]);
+			printf("%c ", game->val->m[i][j]);
 			j++;
 		}
 		printf("\n");
 		i++;
 	}
 }
+
+#include <string.h>
+#include <errno.h>
 
 int main(int ac, char **av)
 {
@@ -40,11 +43,18 @@ int main(int ac, char **av)
 	if (check_file(av[1]) == 0 || file_exist(av[1]) == 0) //check si le fichier exist et si il a le bon nom
 		return (0);
 	game = init_struct();
+	
 	convert_map(game, av[1]); //converti la map du fichier .cub dans un buffer 
 	if (verif_texture(game) == 0 || verif_map(game) == 0) //effectue les verif nessessaire avant de passer a l'exec
 		return (0);
-	display_map(game); //affiche la map
-	// create_window(game);
+	else
+		printf("bravodo\n");
+	// for(int i=0; game->val->map[i]; i++)
+	// 	free(game->val->map[i]);
+	// free(game->val->map);
+	// catch_map(game);
+	// display_map(game); //affiche la map
+	// start_game(game);
 	return (0);
 }
 

@@ -6,29 +6,14 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:09:36 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/28 13:24:27 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/30 17:48:28 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/Cub3d.h"
 
-void send_line_texture(t_data *game, int line, char *msg)
-{
-	if (ft_strncmp(msg, "NO", 2) == 0)
-		game->mesh->north_line = line;
-	else if (ft_strncmp(msg, "SO", 2) == 0)
-		game->mesh->south_line = line;
-	else if (ft_strncmp(msg, "EA", 2) == 0)
-		game->mesh->east_line = line;
-	else if (ft_strncmp(msg, "WE", 2) == 0)
-		game->mesh->west_line = line;
-	else if (ft_strncmp(msg, "F",1) == 0)
-		game->mesh->floor_line = line;
-	else
-		game->mesh->ceiling_line = line;
-}
 
-int search_texture(char* word, t_data *game)
+/*int search_texture(char* word, t_data *game)
 {
 	int	i;
 	int	j;
@@ -61,9 +46,9 @@ int search_texture(char* word, t_data *game)
 		}
 	}
 	return (1);
-}
+}*/
 
-int all_texture(t_data *game) 
+/*int all_texture(t_data *game) 
 {
 	if (search_texture("NO", game) == 0 ||
 		search_texture("SO", game) == 0 ||
@@ -76,7 +61,7 @@ int all_texture(t_data *game)
 		return (0);
 	}
 	return (1);
-}
+}*/
 
 int texture_on_top(t_data *game)
 {
@@ -113,13 +98,9 @@ int texture_on_top(t_data *game)
 
 int verif_texture(t_data *game)
 {
-	if (all_texture(game) == 0) //permet de savoir si "NO, SO, EA, WE, F, C" sont bien dans le fichier map.
-		return (0);
-	if (texture_on_top(game) == 0) //permet de savoir si toute les texture son au top du fichier et qu'il n'y a pas de ligne en trop ou defectueuse avec des caractere random
-		return (0);
 	if (verif_path(game) == 0) //permet de savoir si le path des texture est correct
 		return (0);
-	if (verif_color(game) == 0) //check si la couleur est bonne ou non avec la bonne range [0 - 255]
-		return (0);
+	// if (verif_color(game) == 0) //check si la couleur est bonne ou non avec la bonne range [0 - 255]
+	// 	return (0);
 	return (1);
 }

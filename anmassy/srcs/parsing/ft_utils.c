@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:07:46 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/28 14:07:56 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/30 17:19:00 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void set_size_map(t_data *game)
 		j = 0;
 		while (game->val->map[i][j])
 		{
-			if (game->val->map[i][j] == '\n' && j > game->val->x)
+			if ((game->val->map[i][j] == '\n' || game->val->map[i][j] == ' ') && j > game->val->x)
 				game->val->x = j;
 			j++;
 		}
@@ -70,4 +70,7 @@ void set_size_map(t_data *game)
 		i++;
 		count++;
 	}
+	// printf("%d\n", game->val->y);
+	// printf("%d\n", game->val->x);
+
 }

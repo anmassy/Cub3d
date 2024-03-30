@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/28 21:15:45 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/03/30 17:09:13 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 typedef struct s_player
 {
 	char	**map;
+	char	**m;
     int     first_row;
     int     last_row;
     char    orientation;
@@ -51,31 +52,69 @@ typedef struct s_player
 
 typedef struct s_texture
 {
-    int     north_line;
-    int     south_line;
-    int     east_line;
-    int     west_line;
-    int     floor_line;
-    int     ceiling_line;
-    char    *north_path;
-	char    *south_path;
-	char    *east_path;
-	char    *west_path;
-    char    *ceiling_pigmentation;
-    char    *floor_pigmentation;
+    char    *n_path;
+	char    *s_path;
+	char    *e_path;
+	char    *w_path;
+    char    *c_color;
+    char    *f_color;
 }				t_texture;
 
-typedef struct  s_image
+typedef struct s_img
 {
-    void	*mlx;
-	void	*window;
-}               t_image;
+	void	*mlx_img;
+	int		*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int 	width;
+	int 	height;
+}	t_img;
+
+typedef struct s_rayc
+{
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+	int	  	mapX;
+	int	  	mapY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double 	deltaDistY;
+	int		stepX;
+	int		stepY;
+	int 	hit;
+	int 	side;
+	double	perpWallDist;
+	double	movespeed;
+	double	rotspeed;
+	int		textDir;
+	double	wallX;
+	int		texX;
+	int		move_up;
+	int		move_down;
+	int		move_left;
+	int		move_right;
+	int		move_cam_left;
+	int		move_cam_right;
+}	t_rayc;
 
 typedef struct  s_data
 {
     struct s_player *val;
     struct s_texture *mesh;
-    struct s_image *img;
+    t_img				img;
+	t_img				*text;
+    t_rayc	           rayc;
+    void	            *mlx_ptr;
+	void	            *win_ptr;
 }               t_data;
 
 # ifndef BUFFER_SIZE
@@ -108,17 +147,16 @@ int	ft_strstr(char *str, char *to_find);
 void set_size_map(t_data *game);
 
 /* verif_texture.c */
-void send_line_texture(t_data *game, int line, char *msg);
-int search_texture(char* word, t_data *game);
 int all_texture(t_data *game) ;
 int texture_on_top(t_data *game);
 int verif_texture(t_data *game);
 
 /* verif_path.c */
-int lenght(t_data *game, int line, int j);
-char *cut_path(t_data *game, int line, char *element);
+int lenght(char *line, int j);
+void cut_path(t_data *game, char *line);
 int	path_xpm(char *path);
 int verif_path(t_data *game);
+void get_textures(t_data *game, int fd);
 
 /* verif_color.c */
 char *cut_color(t_data *game, int line, char *element);
@@ -136,7 +174,6 @@ int map_close(t_data *game);
 
 /* main.c */
 void	display_map(t_data *game);
-int main(int ac, char **av);
 
 /* convert_map.c */
 int	    len_doc(char *av);
@@ -145,7 +182,8 @@ void	convert_map(t_data *game, char *av);
 int	check_file(char *av);
 int	file_exist(char *path);
 
-/* set_mlx.c */
-void create_window(t_data *game);
+/*start game*/
+void	start_game(t_data *game);
+void	catch_map(t_data *game);
 
 #endif
