@@ -6,11 +6,46 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:16:55 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/03 15:13:34 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/03 19:40:54 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/Cub3d.h"
+
+int	check_file(char *av)
+{
+	char	s[4];
+	int		i;
+	int		j;
+
+	i = ft_strlen(av) - 4;
+	j = 0;
+	while (av[i])
+		s[j++] = av[i++];
+	if (ft_strncmp(s, ".cub", 4) == 0)
+		return (1);
+	printf("the file must be a .cub\n");
+	return (0);
+}
+
+int	file_exist(char *path)
+{
+	int		fd;
+	char	buffer;
+	ssize_t	bytes_read;
+
+	fd = open(path, O_RDONLY);
+	if (fd != -1)
+	{
+		bytes_read = read(fd, &buffer, 1);
+		if (bytes_read > 0)
+			return (close(fd), 1);
+		else
+			return (close(fd), 0);
+	}
+	else
+		return (0);
+}
 
 void	display_map(t_data *game)
 {
@@ -31,22 +66,18 @@ void	display_map(t_data *game)
 	}
 }
 
-#include <errno.h>
-#include <string.h>
-
 int	main(int ac, char **av)
 {
 	t_data	*game;
 
 	if (ac != 2)
-		return (0);
+		err(NB_ARG, 0);
 	if (check_file(av[1]) == 0 || file_exist(av[1]) == 0)
-		return (0);
+		err(EMPTY_FILE, 0);
 	game = init_struct();
 	convert_map(game, av[1]);
-	if (verif_map(game) == 0)
-		return (0);
+	//verifier les wall
 	display_map(game);
-	start_game(game);
+	// start_game(game);
 	return (0);
 }

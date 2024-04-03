@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:06:11 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/03 15:14:26 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/03 19:25:13 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,61 +51,44 @@ int	comma(char *line)
 	return (1);
 }
 
-int	ft_atoi(char *nptr)
+char *get_nb(char *line, char *temp, int i)
 {
-	int	sign;
-	int	nb;
-	int	i;
-
-	sign = 1;
-	nb = 0;
-	i = 0;
-	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
-		i++;
-	if (nptr[i] == '-' || nptr[i] == '+')
+	int	j;
+	
+	j = 0;
+	temp = malloc(sizeof(char) * color_lenght(line, i) + 2);
+	if (!temp)
+		return (0);
+	while (line[i] != '\0' && line[i] != ',')
 	{
-		if (nptr[i] == '-')
-			sign = -sign;
-		i++;
+		if ((line[i] >= '0' && line[i] <= '9') || line[i] == '-')
+			temp[j++] = line[i++];
+		else
+			return (0);
 	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		nb = nb * 10 + (nptr[i] - 48);
-		i++;
-	}
-	return (sign * nb);
+	temp[j] = '\0';
+	
+	return (temp);
 }
 
 int	valid_color(char *line)
 {
-	char	*temp;
+	char	*number;
 	int		number_of_number;
 	int		i;
-	int		j;
-
-	number_of_number = 0;
+	
 	i = 0;
+	number_of_number = 0;
+	if (comma(line) == 0)
+		return (0);
 	while (line[i] && line[i] != '\n')
 	{
-		j = 0;
-		temp = malloc(sizeof(char) * color_lenght(line, i) + 2);
-		if (comma(line) == 0)
+		number = get_nb(line, number, i);
+		if (range_color(ft_atoi(number)) == 0)
 			return (0);
-		while (line[i] != '\0' && line[i] != ',')
-		{
-			if ((line[i] >= '0' && line[i] <= '9') || line[i] == '-')
-				temp[j++] = line[i++];
-			else
-				return (0);
-		}
-		temp[j] = '\0';
 		number_of_number++;
-		printf("%d\n", number_of_number);
-		j = ft_atoi(temp);
-		if (range_color(j) == 0)
-			return (0);
-		free(temp);
-		i++;
+		i += ft_strlen(number) + 1;
+		free(number);
 	}
 	if (number_of_number == 3)
 		return (1);

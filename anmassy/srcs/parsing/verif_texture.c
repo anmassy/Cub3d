@@ -5,42 +5,85 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 13:09:36 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/03 13:42:41 by anmassy          ###   ########.fr       */
+/*   Created: 2024/04/03 17:49:17 by anmassy           #+#    #+#             */
+/*   Updated: 2024/04/03 19:50:34 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/Cub3d.h"
 
-int	texture_on_top(t_data *game)
+int	path_xpm(char *path)
 {
-	int i;
+	char	s[4];
+	int		i;
+	int		j;
+
+	i = ft_strlen(path) - 4;
+	j = 0;
+	while (path[i])
+		s[j++] = path[i++];
+	if (ft_strncmp(s, ".xpm", 4) == 0)
+		return (1);
+	return (0);
+}
+
+int	all_textures(t_data *game)
+{
+	if (game->mesh->n_path == NULL)
+		return (1);
+	if (game->mesh->s_path == NULL)
+		return (1);
+	if (game->mesh->e_path == NULL)
+		return (1);
+	if (game->mesh->w_path == NULL)
+		return (1);
+	if (game->mesh->c_color == NULL)
+		return (1);
+	if (game->mesh->f_color == NULL)
+		return (1);
+	return (0);
+}
+
+int	cut_path(t_data *game, char *line, int count)
+{
 	int j;
+	int element;
+	char *path;
+	char *elements[6] = {"NO", "SO", "EA", "WE", "F", "C"};
+
+	element = find_elements(line);
+	j = ft_strstr(line, elements[element]);
+	if (j == 0 && line[j] != '\n' && line[j] != '\0')
+		ft_exit(1, ERR_ELEMENT);
+	path = get_path(line, j);
+	if (path != NULL)
+	{
+		if ((element >= 0 && element <= 3) && (path_xpm(path) == 0
+				|| file_exist(path) == 0))
+			ft_exit(1, ERR_PATH);
+		else if (element >= 4 && valid_color(path) == 0)
+			ft_exit(1, ERR_COLOR);
+		set_path(game, path, elements[element]);
+		count++;
+	}
+	return (count);
+}
+
+void	get_textures(t_data *game, int fd)
+{
+	char	*temp;
+	int 	count;
+	int		i;
 
 	i = 0;
-	while (game->val->m[i])
+	count = 0;
+	while (all_textures(game) != 0)
 	{
-		j = 0;
-		while (game->val->m[i][j])
-		{
-			while (game->val->m[i][j] == ' ')
-				j++;
-			if (ft_strncmp(game->val->m[i] + j, "NO", 2)
-				&& ft_strncmp(game->val->m[i] + j, "SO", 2)
-				&& ft_strncmp(game->val->m[i] + j, "EA", 2)
-				&& ft_strncmp(game->val->m[i] + j, "WE", 2)
-				&& ft_strncmp(game->val->m[i] + j, "F", 1)
-				&& ft_strncmp(game->val->m[i] + j, "C", 1)
-				&& ft_strncmp(game->val->m[i] + j, "\n", 1))
-			{
-				printf("one or more elements are out of place or too many in the map\n");
-				return (0);
-			}
-			if (i == game->val->last_row)
-				return (1);
-			i++;
-			j = 0;
-		}
+		temp = get_next_line(fd);
+		count = cut_path(game, temp, count);
+		free(temp);
+		if (count > 6)
+			ft_exit(1, ERR_ELEMENT);
+		i++;
 	}
-	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 10:00:03 by anmassy           #+#    #+#              #
-#    Updated: 2024/04/03 14:19:27 by anmassy          ###   ########.fr        #
+#    Updated: 2024/04/03 19:37:01 by anmassy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,11 @@
 SRC =	srcs/parsing/get_next_line_utils.c \
 		srcs/parsing/get_next_line.c \
 		srcs/parsing/init_struct.c \
-		srcs/parsing/verif_map.c \
 		srcs/parsing/verif_texture.c \
 		srcs/parsing/verif_wall.c \
 		srcs/parsing/main.c \
 		srcs/parsing/verif_color.c \
-		srcs/parsing/verif_path.c \
+		srcs/parsing/get_path.c \
 		srcs/parsing/ft_utils.c \
 		srcs/parsing/convert_map.c\
 		srcs/parsing/exit_fonction.c\
