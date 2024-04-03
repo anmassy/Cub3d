@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/03 14:35:22 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/03 16:49:40 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <stddef.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <math.h>
 
 #include "../mlx_linux/mlx.h"
 
@@ -30,13 +31,16 @@
 # define CEILING_T "./images/ceiling_texture.xpm"
 
 /* KEYS */
-# define L 67 //fleche de droite
-# define R 68 //fleche de gauche
+# define L 65363 //fleche de droite
+# define R 65361 //fleche de gauche
 # define W 119
-# define A 97
+# define A 100
 # define S 115
-# define D 100
+# define D 97
 # define ESC 65307
+
+# define SCREENWIDTH 1920
+# define SCREENHEIGHT 1080
 
 # define TOP_ELEM "element pas au top ou element en trop"
 # define ERR_PATH "path incorrect"
@@ -114,6 +118,19 @@ typedef struct s_rayc
 	int		move_cam_right;
 }	t_rayc;
 
+typedef struct s_print
+{
+	int x;
+	int	y;
+	int lineheight;
+	int	drawstart;
+	int	drawend;
+	double step;
+	double texPos;
+	int color;
+	int texY;
+}	t_print;
+
 typedef struct  s_data
 {
     struct s_player 	*val;
@@ -153,6 +170,7 @@ int verif_map(t_data *game);
 int ft_strncmp(char *s1, char *s2, size_t n);
 int	ft_strstr(char *str, char *to_find);
 void set_size_map(t_data *game);
+int	ft_atoi(char *nptr);
 
 /* verif_texture.c */
 int all_texture(t_data *game) ;
@@ -195,5 +213,34 @@ void	start_game(t_data *game);
 void	catch_map(t_data *game);
 
 int ft_exit(int nb, char *msg);
+
+/*raycast*/
+/*--------------------------------------------------------*/
+void	start_game(t_data *game);
+int		hook(void *dt);
+void	reset_val(t_data *game, int x);
+void	calc_step_and_sidedist(t_data *game);
+void	dda(t_data *game);
+void	raycast(t_data *game);
+int		handle_click_end(t_data *game);
+int		key_release(int key, void *dt);
+int		key_hook(int key, void *dt);
+void	init_text_addr(t_data *game);
+void	init_text_img(t_data *game);
+void	init_game(t_data *game);
+void	ft_init_texture(t_data *game);
+void	init_direction_n_s(t_data *game);
+void	init_direction_e_w(t_data *game);
+void	move_cam_left(t_data *game);
+void	move_cam_right(t_data *game);
+void	move(t_data *game);
+void	move_right(t_data *game);
+void	move_left(t_data *game);
+void	move_down(t_data *game);
+void	move_up(t_data *game);
+int		pass_to_comas(char *s, int nb);
+int		rgb(char *rgb);
+t_print	init_print(t_data *game);
+void	print_col(t_data *game, int x);
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+         #
+#    By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 10:00:03 by anmassy           #+#    #+#              #
-#    Updated: 2024/04/03 14:19:27 by anmassy          ###   ########.fr        #
+#    Updated: 2024/04/03 16:47:03 by lmarchai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,14 @@ SRC =	srcs/parsing/get_next_line_utils.c \
 		srcs/parsing/ft_utils.c \
 		srcs/parsing/convert_map.c\
 		srcs/parsing/exit_fonction.c\
-		srcs/Raytracing/raycastings.c
+		srcs/Raytracing/raycastings.c\
+		srcs/Raytracing/dda.c\
+		srcs/Raytracing/init.c\
+		srcs/Raytracing/move.c\
+		srcs/Raytracing/move_cam.c\
+		srcs/Raytracing/event_hooks.c\
+		srcs/Raytracing/render.c\
+		srcs/Raytracing/init_textures.c
 
 OBJ = $(SRC:.c=.o)
 
