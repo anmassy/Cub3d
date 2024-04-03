@@ -6,7 +6,7 @@
 #    By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 10:00:03 by anmassy           #+#    #+#              #
-#    Updated: 2024/04/03 20:14:56 by anmassy          ###   ########.fr        #
+#    Updated: 2024/04/03 20:17:19 by anmassy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,14 +21,14 @@ SRC =	srcs/parsing/get_next_line_utils.c \
 		srcs/parsing/ft_utils.c \
 		srcs/parsing/convert_map.c\
 		srcs/parsing/exit_fonction.c\
-		srcs/Raytracing/raycastings.c\
-		srcs/Raytracing/dda.c\
-		srcs/Raytracing/init.c\
-		srcs/Raytracing/move.c\
-		srcs/Raytracing/move_cam.c\
-		srcs/Raytracing/event_hooks.c\
-		srcs/Raytracing/render.c\
-		srcs/Raytracing/init_textures.c\
+		srcs/raycasting/raycastings.c\
+		srcs/raycasting/dda.c\
+		srcs/raycasting/init.c\
+		srcs/raycasting/move.c\
+		srcs/raycasting/move_cam.c\
+		srcs/raycasting/event_hooks.c\
+		srcs/raycasting/render.c\
+		srcs/raycasting/init_textures.c\
 		main.c
 
 OBJ = $(SRC:.c=.o)
