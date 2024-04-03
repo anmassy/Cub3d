@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/30 17:09:13 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/03 04:56:48 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@
 
 typedef struct s_player
 {
-	char	**map;
 	char	**m;
+	// char	**map;
     int     first_row;
     int     last_row;
     char    orientation;
     int     height;
+	double	startX;
+	double	startY;
     int     x;
     int     y;
 }				t_player;
@@ -108,11 +110,11 @@ typedef struct s_rayc
 
 typedef struct  s_data
 {
-    struct s_player *val;
-    struct s_texture *mesh;
+    struct s_player 	*val;
+    struct s_texture 	*mesh;
     t_img				img;
 	t_img				*text;
-    t_rayc	           rayc;
+    t_rayc	          	rayc;
     void	            *mlx_ptr;
 	void	            *win_ptr;
 }               t_data;

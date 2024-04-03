@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:09:36 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/30 17:48:28 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/03 04:45:25 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,21 @@
 
 	i = 0;
 	count = 0;
-	while (game->val->map[i])
+	while (game->val->m[i])
 	{
 		j = 0;
-		while (game->val->map[i][j])
+		while (game->val->m[i][j])
 		{
-			while (game->val->map[i][j] == ' ')
+			while (game->val->m[i][j] == ' ')
 				j++;
-			if (ft_strncmp(game->val->map[i] + j, word, ft_strlen(word)) == 0)
+			if (ft_strncmp(game->val->m[i] + j, word, ft_strlen(word)) == 0)
 			{
 				count++;
 				send_line_texture(game, i, word); //permet de recuperer la ligne ou se trouve les texture afin de pouvoir verifier seulement cette ligne pour le path
 				if (i > game->val->last_row && count == 1)
 					game->val->last_row = i;
 			}
-			if (!game->val->map[i + 1])
+			if (!game->val->m[i + 1])
 			{
 				if (count != 1)
 					return (0);
@@ -69,20 +69,20 @@ int texture_on_top(t_data *game)
 	int	j;
 
 	i = 0;
-	while (game->val->map[i])
+	while (game->val->m[i])
 	{
 		j = 0;
-		while (game->val->map[i][j])
+		while (game->val->m[i][j])
 		{
-			while (game->val->map[i][j] == ' ')
+			while (game->val->m[i][j] == ' ')
 				j++;
-			if (ft_strncmp(game->val->map[i] + j, "NO", 2) &&
-				ft_strncmp(game->val->map[i] + j, "SO", 2) &&
-				ft_strncmp(game->val->map[i] + j, "EA", 2) &&
-				ft_strncmp(game->val->map[i] + j, "WE", 2) &&
-				ft_strncmp(game->val->map[i] + j, "F", 1) &&
-				ft_strncmp(game->val->map[i] + j, "C", 1) &&
-				ft_strncmp(game->val->map[i] + j, "\n", 1))
+			if (ft_strncmp(game->val->m[i] + j, "NO", 2) &&
+				ft_strncmp(game->val->m[i] + j, "SO", 2) &&
+				ft_strncmp(game->val->m[i] + j, "EA", 2) &&
+				ft_strncmp(game->val->m[i] + j, "WE", 2) &&
+				ft_strncmp(game->val->m[i] + j, "F", 1) &&
+				ft_strncmp(game->val->m[i] + j, "C", 1) &&
+				ft_strncmp(game->val->m[i] + j, "\n", 1))
 			{
 				printf("one or more elements are out of place or too many in the map\n");
 				return (0);

@@ -9,8 +9,6 @@
 # include <math.h>
 # include "../../includes/Cub3d.h"
 
-#define mapWidth 24
-#define mapHeight 24
 #define screenWidth 1920
 #define screenHeight 1080
 
@@ -167,7 +165,7 @@ void	dda(t_data *game)
 		  	game->rayc.side = 1;
 		}
 		//on check si on touche le mur
-		if (game->val->map[game->rayc.mapX][game->rayc.mapY] > 0) 
+		if (game->val->m[game->rayc.mapY][game->rayc.mapX] == '1') 
 			game->rayc.hit = 1;
 	}
 	/*
@@ -186,13 +184,13 @@ void	dda(t_data *game)
 
 int	choose_wall_color(t_data *game)
 {
-	if (game->val->map[game->rayc.mapX][game->rayc.mapY] == 1)
+	if (game->val->m[game->rayc.mapY][game->rayc.mapX] == 1)
 		return (HEX_Red);
-	if (game->val->map[game->rayc.mapX][game->rayc.mapY] == 2)
+	if (game->val->m[game->rayc.mapY][game->rayc.mapX] == 2)
 		return (HEX_Green);
-	if (game->val->map[game->rayc.mapX][game->rayc.mapY] == 3)
+	if (game->val->m[game->rayc.mapY][game->rayc.mapX] == 3)
 		return (HEX_Blue);
-	if (game->val->map[game->rayc.mapX][game->rayc.mapY] == 4)
+	if (game->val->m[game->rayc.mapY][game->rayc.mapY] == 4)
 		return (HEX_White);
 	return (HEX_Yellow);
 }
@@ -359,44 +357,44 @@ int	hook(void *dt)
 	return (0);
 }
 
-#define key_up 122
 #define key_down 115
+#define key_up 122
 #define key_right 100
-#define key_left 113
 #define key_right_arrow 65363
+#define key_left 113
 #define key_left_arrow 65361
 
 void	move(t_data *game)
 {
-	if (game->rayc.move_up == 1)
-	{
-		if(!game->val->map[(int)(game->rayc.posX + game->rayc.dirX * game->rayc.movespeed)][(int)game->rayc.posY])
-	  		game->rayc.posX += game->rayc.dirX * game->rayc.movespeed;
-	  	if(!game->val->map[(int)game->rayc.posX][(int)( game->rayc.posY +  game->rayc.dirY *  game->rayc.movespeed)]) 
-	  		game->rayc.posY +=  game->rayc.dirY * game->rayc.movespeed;
-	}
-	if (game->rayc.move_down == 1)
-	{
-		if(!game->val->map[(int)(game->rayc.posX - game->rayc.dirX * game->rayc.movespeed)][(int)game->rayc.posY])
-	  		game->rayc.posX -= game->rayc.dirX * game->rayc.movespeed;
-	  	if(!game->val->map[(int)game->rayc.posX][(int)( game->rayc.posY -  game->rayc.dirY *  game->rayc.movespeed)]) 
-	  		game->rayc.posY -=  game->rayc.dirY *  game->rayc.movespeed;
-	}
-	if (game->rayc.move_left == 1)
-	{
-		if (!game->val->map[(int)(game->rayc.posX - game->rayc.dirY * game->rayc.movespeed)][(int)game->rayc.posY])
-			game->rayc.posX -= game->rayc.dirY * game->rayc.movespeed;
-		if (!game->val->map[(int)game->rayc.posX][(int)(game->rayc.posY + game->rayc.dirX * game->rayc.movespeed)]) 
-			game->rayc.posY += game->rayc.dirX * game->rayc.movespeed;
-	}
+	    if (game->rayc.move_up == 1)
+    {
+        if (game->val->m[(int)(game->rayc.posY + game->rayc.dirY * game->rayc.movespeed)][(int)game->rayc.posX] != '1')
+            game->rayc.posY += game->rayc.dirY * game->rayc.movespeed;
+        if (game->val->m[(int)game->rayc.posY][(int)(game->rayc.posX + game->rayc.dirX * game->rayc.movespeed)] != '1')
+            game->rayc.posX += game->rayc.dirX * game->rayc.movespeed;
+    }
+    if (game->rayc.move_down == 1)
+    {
+        if (game->val->m[(int)(game->rayc.posY - game->rayc.dirY * game->rayc.movespeed)][(int)game->rayc.posX] != '1')
+            game->rayc.posY -= game->rayc.dirY * game->rayc.movespeed;
+        if (game->val->m[(int)game->rayc.posY][(int)(game->rayc.posX - game->rayc.dirX * game->rayc.movespeed)] != '1')
+            game->rayc.posX -= game->rayc.dirX * game->rayc.movespeed;
+    }
+    if (game->rayc.move_left == 1)
+    {
+        if (game->val->m[(int)(game->rayc.posY + game->rayc.dirX * game->rayc.movespeed)][(int)game->rayc.posX] != '1')
+            game->rayc.posY += game->rayc.dirX * game->rayc.movespeed;
+        if (game->val->m[(int)game->rayc.posY][(int)(game->rayc.posX - game->rayc.dirY * game->rayc.movespeed)] != '1')
+            game->rayc.posX -= game->rayc.dirY * game->rayc.movespeed;
+    }
 
-	if (game->rayc.move_right == 1)
-	{
-		if (!game->val->map[(int)(game->rayc.posX + game->rayc.dirY * game->rayc.movespeed)][(int)game->rayc.posY])
-			game->rayc.posX += game->rayc.dirY * game->rayc.movespeed;
-		if (!game->val->map[(int)game->rayc.posX][(int)(game->rayc.posY - game->rayc.dirX * game->rayc.movespeed)]) 
-			game->rayc.posY -= game->rayc.dirX * game->rayc.movespeed;
-	}
+    if (game->rayc.move_right == 1)
+    {
+        if (game->val->m[(int)(game->rayc.posY - game->rayc.dirX * game->rayc.movespeed)][(int)game->rayc.posX] != '1')
+            game->rayc.posY -= game->rayc.dirX * game->rayc.movespeed;
+        if (game->val->m[(int)game->rayc.posY][(int)(game->rayc.posX + game->rayc.dirY * game->rayc.movespeed)] != '1')
+            game->rayc.posX += game->rayc.dirY * game->rayc.movespeed;
+    }
 	if (game->rayc.move_cam_right == 1)
 	{
 		//both camera direction and camera plane must be rotated
@@ -469,10 +467,10 @@ void	start_game(t_data *game)
 	/*
 		initilialisation des valeurs de départs
 	*/
-	game->rayc.posX = 10, game->rayc.posY = 10; //a recup
+	game->rayc.posX = game->val->startX + 0.5, game->rayc.posY = game->val->startY + 0.5; //a recup
 	game->rayc.dirX = -1, game->rayc.dirY = 0; // a recup en fonction de la direction du joueur au depart
-	game->rayc.planeX = 0, game->rayc.planeY = 0.66; //osef c'est le fov
 	game->rayc.movespeed = 0.15;
+	game->rayc.planeX = 0, game->rayc.planeY = 0.66; //osef c'est le fov
 	game->rayc.rotspeed = 0.03;
 	game->img.mlx_img = NULL;
 	game->rayc.move_up = 0;

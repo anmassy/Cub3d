@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+         #
+#    By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 10:00:03 by anmassy           #+#    #+#              #
-#    Updated: 2024/03/30 12:48:46 by anmassy          ###   ########.fr        #
+#    Updated: 2024/04/03 03:56:17 by lmarchai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,13 +27,13 @@ SRC =	srcs/parsing/get_next_line_utils.c \
 OBJ = $(SRC:.c=.o)
 
 NAME = Cub3d
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CC = clang
+CFLAGS = -Wall -Wextra -Werror -gdwarf-4
 RM = rm -f
 
 INCS = -I ./includes -I ./mlx_linux
-LIBC = -L ./mlx_linux
-MLX_FLAGS =	-L./mlx_linux -lX11 -lbsd -lXext -lm
+LIBC = -L ./mlx_linux 
+MLX_FLAGS =	-L./mlx_linux -lX11 -lXext -lm 
 
 all : $(NAME)
 
@@ -41,12 +41,12 @@ all : $(NAME)
 	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	@$(MAKE) -C mlx_linux >/dev/null 2>&1
-	@$(CC) $(CFLAGS) $(INCS) $(OBJ) $(LIBC) mlx_linux/libmlx.a $(MLX_FLAGS) -o $(NAME) -g
+	@$(MAKE) -C mlx_linux 
+	@$(CC) $(CFLAGS) $(INCS) $(OBJ) $(LIBC) mlx_linux/libmlx.a $(MLX_FLAGS) -o $(NAME) 
 
 clean :
 	@$(RM) $(OBJ)
-	@$(MAKE) -C mlx_linux clean >/dev/null 2>&1
+	@$(MAKE) -C mlx_linux clean 
 
 fclean : clean
 	@$(RM) $(NAME)

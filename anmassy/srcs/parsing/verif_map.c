@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:03:05 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/30 10:40:33 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/03 04:40:12 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ int	who_is_that_player(t_data *game)
 
 	i = game->val->last_row;
 	count = 0;
-	while (game->val->map[i])
+	while (game->val->m[i])
 	{
 		j = 0;
-		while (game->val->map[i][j])
+		while (game->val->m[i][j])
 		{
-			if (game->val->map[i][j] == 'N' ||
-				game->val->map[i][j] == 'S' ||
-				game->val->map[i][j] == 'E' ||
-				game->val->map[i][j] == 'W')
+			if (game->val->m[i][j] == 'N' ||
+				game->val->m[i][j] == 'S' ||
+				game->val->m[i][j] == 'E' ||
+				game->val->m[i][j] == 'W')
 			{
-				game->val->orientation = game->val->map[i][j];
+				game->val->orientation = game->val->m[i][j];
 				count++;
 			}
 			j++;
@@ -49,17 +49,17 @@ int	check_value(t_data *game)
 	int	j;
 
 	i = game->val->first_row;
-	while (game->val->map[i])
+	while (game->val->m[i])
 	{
 		j = 0;
-		while (game->val->map[i][j] == ' ')
+		while (game->val->m[i][j] == ' ')
 			j++;
-		while (game->val->map[i][j] && game->val->map[i][j] != '\n')
+		while (game->val->m[i][j] && game->val->m[i][j] != '\n')
 		{
-			if (game->val->map[i][j] != '1' && game->val->map[i][j] != '0'
-				&& game->val->map[i][j] != 'N' && game->val->map[i][j] != 'S'
-				&& game->val->map[i][j] != 'E' && game->val->map[i][j] != 'W'
-				&& game->val->map[i][j] != ' ')
+			if (game->val->m[i][j] != '1' && game->val->m[i][j] != '0'
+				&& game->val->m[i][j] != 'N' && game->val->m[i][j] != 'S'
+				&& game->val->m[i][j] != 'E' && game->val->m[i][j] != 'W'
+				&& game->val->m[i][j] != ' ')
 			{
 				printf("the map contains incorect elements\n");
 				return (0);
@@ -81,13 +81,13 @@ int set_first_row(t_data *game)
 	int	i;
 	int	j;
 
-	i = game->val->last_row + 1;
-	while (game->val->map[i])
+	i = game->val->last_row;
+	while (game->val->m[i])
 	{
 		j = 0;
-		while (game->val->map[i][j] || game->val->map[i][j] == '\n')
+		while (game->val->m[i][j] || game->val->m[i][j] == '\n')
 		{
-			if (game->val->map[i][j] != ' ' && game->val->map[i][j] != '\n')
+			if (game->val->m[i][j] != ' ' && game->val->m[i][j] != '\n')
 			{
 				game->val->first_row = i;
 				return (1);

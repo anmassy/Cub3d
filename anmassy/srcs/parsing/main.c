@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:16:55 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/30 17:44:53 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/03 05:26:52 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	display_map(t_data *game)
 		j = 0;
 		while (game->val->m[i][j])
 		{
-			printf("%c ", game->val->m[i][j]);
+			printf("%c", game->val->m[i][j]);
 			j++;
 		}
 		printf("\n");
@@ -53,8 +53,8 @@ int main(int ac, char **av)
 	// 	free(game->val->map[i]);
 	// free(game->val->map);
 	// catch_map(game);
-	// display_map(game); //affiche la map
-	// start_game(game);
+	display_map(game); //affiche la map
+	start_game(game);
 	return (0);
 }
 

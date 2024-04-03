@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:07:46 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/30 17:19:00 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/03 04:39:45 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ void set_size_map(t_data *game)
 	
 	count = 0;
 	i = game->val->first_row;
-	while (game->val->map[i])
+	while (game->val->m[i])
 	{
 		j = 0;
-		while (game->val->map[i][j])
+		while (game->val->m[i][j])
 		{
-			if ((game->val->map[i][j] == '\n' || game->val->map[i][j] == ' ') && j > game->val->x)
+			if ((game->val->m[i][j] == '\n' || game->val->m[i][j] == ' ') && j > game->val->x)
 				game->val->x = j;
 			j++;
 		}

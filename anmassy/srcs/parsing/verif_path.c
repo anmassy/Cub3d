@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:06:37 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/30 18:12:39 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/03 04:00:05 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int search_texture(char* word, char *line)
 	i = 0;
 	while (line[i] == ' ')
 		i++;
-	printf("%s\n", line);
 	if (ft_strncmp(line + i, word, ft_strlen(word)) == 0)
 		return (0);
 	return (1);
@@ -60,11 +59,6 @@ int find_elements(char *line)
 		return (F);
 	else if (search_texture("C", line) == 0)
 		return (C);
-	else
-	{
-		printf("the file must contain all the following characteristics (NO, SO, EA, WE, F, C)\n");
-		//exit clean du programme;
-	}
 	return (0);
 }
 
@@ -76,7 +70,6 @@ char *get_path(char *line, int j)
 	
 	i = 0;
 	len_path = lenght(line, j);
-	printf("len =%d\n", len_path);
 	path = malloc(sizeof(char) * len_path + 2);
 	while (line[j] != '\n')
 	{
@@ -161,12 +154,6 @@ void get_textures(t_data *game, int fd)
 	{
 		temp = get_next_line(fd);
 		cut_path(game, temp);
-		printf("n %s\n", game->mesh->n_path);
-		printf("s %s\n", game->mesh->s_path);
-		printf("e %s\n", game->mesh->e_path);
-		printf("w %s\n", game->mesh->w_path);
-		printf("c %s\n", game->mesh->c_color);
-		printf("f %s\n", game->mesh->f_color);
 		free(temp);
 		i++;
 	}

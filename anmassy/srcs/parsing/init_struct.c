@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:16:08 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/30 17:46:45 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/03 04:45:41 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	set_null(t_data *game)
 {
-	game->val->map = NULL;
+	game->val->m = NULL;
     game->val->first_row = 0;
     game->val->last_row = 0;
     game->val->orientation = 0;
