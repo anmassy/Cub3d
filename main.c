@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:16:55 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/03 20:14:39 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/03 20:26:31 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	check_file(char *av)
 		s[j++] = av[i++];
 	if (ft_strncmp(s, ".cub", 4) == 0)
 		return (1);
-	printf("the file must be a .cub\n");
 	return (0);
 }
 
@@ -71,9 +70,9 @@ int	main(int ac, char **av)
 	t_data	*game;
 
 	if (ac != 2)
-		err(NB_ARG, 0);
+		ft_exit(1, NB_ARG);
 	if (check_file(av[1]) == 0 || file_exist(av[1]) == 0)
-		err(EMPTY_FILE, 0);
+		ft_exit(1, EMPTY_FILE);
 	game = init_struct();
 	convert_map(game, av[1]);
 	//verifier les wall

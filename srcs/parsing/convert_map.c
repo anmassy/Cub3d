@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:32:23 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/03 19:35:37 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/03 20:29:49 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ void	convert_map(t_data *game, char *av)
 	i = 0;
 	fd = open(av, O_RDONLY);
 	game->val->m = NULL;
-	if (fd == -1)
-		ft_exit(1, ERR_FILE);
+	//checké precedement, a verfier, apres c'est ube secu
+	// if (fd == -1)
+		// ft_exit(1, ERR_FILE);
 	get_textures(game, fd);
 	buf = get_next_line(fd);
 	buf = pass_blank(buf, fd);

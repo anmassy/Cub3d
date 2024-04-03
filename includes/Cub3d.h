@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/03 20:02:45 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/03 20:34:32 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,16 @@
 # define SCREENWIDTH 1920
 # define SCREENHEIGHT 1080
 
-# define ERR_ELEMENT "element pas au top ou element en trop"
-# define TOP_ELEM "element pas au top ou element en trop"
-# define ERR_PATH "path incorrect"
-# define ERR_COLOR "rgb envoye pas bonne"
-# define EMPTY_LINE "ligne vide"
-# define ERR_FILE "fd incorect"
-# define NB_ARG "nombre d'argument incorect"
-# define EMPTY_FILE "fichier vide ou n'existe pas"
-# define ERR_MALLOC "malloc a foirer / dupmap"
-# define ERR_MAP "value map"
-# define ERR_PLAYER "player"
+# define ERR_MALLOC "malloc"
+# define ERR_ELEMENT "the elements (texture) are not well written"
+# define ERR_PATH "path is invalid"
+# define ERR_COLOR "this color (RGP) does not exist"
+# define EMPTY_LINE "the line is empty"
+// # define ERR_FILE "fd incorect"
+# define NB_ARG "number of arguments incorect"
+# define EMPTY_FILE "the file is empty or does not exist"
+# define ERR_MAP "the map is not well written"
+# define ERR_PLAYER "number of players incorrect"
 
 
 typedef struct s_player
@@ -191,7 +190,6 @@ void	set_path(t_data *game, char *line, char *element);
 
 /* exit_fonction.c */
 int		ft_exit(int nb, char *msg);
-int 	err(char *msg, int nb);
 
 /* get_next_line.c/ get_next_line_utils.c */
 int		ft_strlen(const char *str);
