@@ -50,7 +50,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 		return (NULL);
 	i = ft_strlen(s1);
 	j = ft_strlen(s2);
-	string = (char *)malloc ((i + j + 1) * sizeof(*s1));
+	string = (char *)malloc((i + j + 1) * sizeof(*s1));
 	if (!string)
 		return (free(s1), NULL);
 	i = 0;

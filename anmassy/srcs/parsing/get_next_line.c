@@ -27,10 +27,10 @@ int	size_line(char *strings, int i)
 
 char	*get_next_line(int fd)
 {
-	static char		*strings;
-	char			*buffer;
-	char			*line;
-	int				ret;
+	static char *strings;
+	char *buffer;
+	char *line;
+	int ret;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   verif_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:03:05 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/03 04:40:12 by lmarchai         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:02:58 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/Cub3d.h"
-
 
 int	who_is_that_player(t_data *game)
 {
@@ -26,10 +25,8 @@ int	who_is_that_player(t_data *game)
 		j = 0;
 		while (game->val->m[i][j])
 		{
-			if (game->val->m[i][j] == 'N' ||
-				game->val->m[i][j] == 'S' ||
-				game->val->m[i][j] == 'E' ||
-				game->val->m[i][j] == 'W')
+			if (game->val->m[i][j] == 'N' || game->val->m[i][j] == 'S'
+				|| game->val->m[i][j] == 'E' || game->val->m[i][j] == 'W')
 			{
 				game->val->orientation = game->val->m[i][j];
 				count++;
@@ -76,7 +73,7 @@ int	check_value(t_data *game)
 	return (1);
 }
 
-int set_first_row(t_data *game)
+int	set_first_row(t_data *game)
 {
 	int	i;
 	int	j;
@@ -99,14 +96,11 @@ int set_first_row(t_data *game)
 	return (0);
 }
 
-int verif_map(t_data *game)
+int	verif_map(t_data *game)
 {
-	if (set_first_row(game) == 0)
+	if (check_value(game) == 0)
 		return (0);
-	set_size_map(game);
-	if (check_value(game) == 0) //check si la map a bieen les bonne valeur
-		return (0);
-	if (map_close(game) == 0) //check si la map est bien entourer de mur
+	if (map_close(game) == 0)
 		return (0);
 	return (1);
 }
