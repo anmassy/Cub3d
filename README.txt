@@ -20,7 +20,7 @@ Pour la partie map il faut gerer :
 /OK\ -qu'il n'y est pas deux player mais qu'il y en ai au moins un
 a revoir -que la map soit bien entourer de mur peut importe la forme
 
-/* Raytracing */
 
-
-recuperer les colonne et les ligne
+gerer les murs
+leak
+norme

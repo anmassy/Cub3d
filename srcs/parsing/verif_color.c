@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:06:11 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/03 19:25:13 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:06:32 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char *get_nb(char *line, char *temp, int i)
 	j = 0;
 	temp = malloc(sizeof(char) * color_lenght(line, i) + 2);
 	if (!temp)
-		return (0);
+		return (NULL);
 	while (line[i] != '\0' && line[i] != ',')
 	{
 		if ((line[i] >= '0' && line[i] <= '9') || line[i] == '-')
@@ -67,7 +67,6 @@ char *get_nb(char *line, char *temp, int i)
 			return (0);
 	}
 	temp[j] = '\0';
-	
 	return (temp);
 }
 
@@ -87,7 +86,9 @@ int	valid_color(char *line)
 		if (range_color(ft_atoi(number)) == 0)
 			return (0);
 		number_of_number++;
-		i += ft_strlen(number) + 1;
+		i += ft_strlen(number);
+		if (line[i] != '\0')
+			i++;
 		free(number);
 	}
 	if (number_of_number == 3)

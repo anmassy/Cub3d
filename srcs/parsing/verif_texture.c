@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:49:17 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/03 19:50:34 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/04 11:22:09 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	cut_path(t_data *game, char *line, int count)
 
 	element = find_elements(line);
 	j = ft_strstr(line, elements[element]);
-	if (j == 0 && line[j] != '\n' && line[j] != '\0')
+	if (line[j] != '\n' && line[j] != '\0' && j == 0)
 		ft_exit(1, ERR_ELEMENT);
 	path = get_path(line, j);
 	if (path != NULL)
@@ -66,6 +66,7 @@ int	cut_path(t_data *game, char *line, int count)
 		set_path(game, path, elements[element]);
 		count++;
 	}
+	free(path);
 	return (count);
 }
 

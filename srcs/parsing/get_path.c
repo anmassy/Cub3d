@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:06:37 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/03 18:26:04 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:09:44 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	find_elements(char *line)
 		return (F);
 	else if (search_texture("C", line) == 0)
 		return (C);
-	return (-1);
+	return (0);
 }
 
 int	lenght(char *line, int j)
@@ -71,8 +71,8 @@ char	*get_path(char *line, int j)
 	if (j && len_path == 0)
 		ft_exit(1, EMPTY_LINE);
 	path = malloc(sizeof(char) * len_path + 2);
-    // if (!path)
-    //     return (NULL);
+	if (!path)
+   		return (NULL);
 	while (line[j] != '\n')
 	{
 		while (line[j] == ' ')
