@@ -6,7 +6,7 @@
 /*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:29:49 by lmarchai          #+#    #+#             */
-/*   Updated: 2024/04/03 16:35:35 by lmarchai         ###   ########.fr       */
+/*   Updated: 2024/04/04 11:17:33 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,34 @@
 
 void	init_direction_e_w(t_data *game)
 {
-	if (game->val->orientation == 'E' || game->val->orientation == 'W')
-	{
-		if (game->val->orientation == 'E')
-		{
-			game->rayc.dirX = 1.0000001;
-			game->rayc.dirY = 0;
-		}
-		else
-		{
-			game->rayc.dirX = -1.0000001;
-			game->rayc.dirY = 0;
-		}
-		game->rayc.planeX = 0;
+	if(game->val->orientation == 'N')
+		game->rayc.dirX = -1.000001;
+	if(game->val->orientation == 'S')
+		game->rayc.dirX = 1.000001;;
+	if(game->val->orientation == 'E')
+		game->rayc.dirY = 1.000001;;
+	if(game->val->orientation == 'W')
+		game->rayc.dirY = -1.000001;;
+	if(game->val->orientation == 'N')
 		game->rayc.planeY = 0.66;
-	}
-	else
-		init_direction_n_s(game);
-}
-
-void	init_direction_n_s(t_data *game)
-{
-	if (game->val->orientation == 'N' || game->val->orientation == 'S')
-	{
-		if (game->val->orientation == 'N')
-		{
-			game->rayc.dirX = 0;
-			game->rayc.dirY = -1.0000001;
-		}
-		else
-		{
-			game->rayc.dirX = 0;
-			game->rayc.dirY = 1.0000001;
-		}
+	if(game->val->orientation == 'S')
+		game->rayc.planeY = -0.66;
+	if(game->val->orientation == 'E')
 		game->rayc.planeX = 0.66;
-		game->rayc.planeY = 0;
-	}
+	if(game->val->orientation == 'W')
+		game->rayc.planeX = -0.66;
 }
 
 void	ft_init_texture(t_data *game)
 {
 	if (game->rayc.side == 0 && game->rayc.rayDirX < 0)
-		game->rayc.textDir = 0;
-	if (game->rayc.side == 0 && game->rayc.rayDirX >= 0)
-		game->rayc.textDir = 1;
-	if (game->rayc.side == 1 && game->rayc.rayDirY < 0)
 		game->rayc.textDir = 2;
-	if (game->rayc.side == 1 && game->rayc.rayDirY >= 0)
+	if (game->rayc.side == 0 && game->rayc.rayDirX >= 0)
 		game->rayc.textDir = 3;
+	if (game->rayc.side == 1 && game->rayc.rayDirY < 0)
+		game->rayc.textDir = 0;
+	if (game->rayc.side == 1 && game->rayc.rayDirY >= 0)
+		game->rayc.textDir = 1;
 	if (game->rayc.side == 0)
 		game->rayc.wallX = game->rayc.posY + game->rayc.perpWallDist \
 						* game->rayc.rayDirY;
