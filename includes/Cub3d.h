@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/04 13:00:23 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:53:32 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@
 /* KEYS */
 # define L 65363 //fleche de droite
 # define R 65361 //fleche de gauche
-# define W 119
-# define A 100
-# define S 115
-# define D 97
+# define S 119
+# define D 100
+# define W 115
+# define A 97
 # define ESC 65307
 
 # define SCREENWIDTH 1920
