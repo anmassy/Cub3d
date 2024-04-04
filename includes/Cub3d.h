@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/04 13:53:32 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/04 14:20:48 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ char	*get_path(char *line, int j);
 void	set_path(t_data *game, char *line, char *element);
 
 /* exit_fonction.c */
+int	err(int nb, char *msg);
 int		ft_exit(int nb, char *msg);
 void	ft_free(t_data *game);
 

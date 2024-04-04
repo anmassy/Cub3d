@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:32:23 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/04 13:30:32 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:08:06 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ struct s_player	*check_start(struct s_player *m, char *s, int y)
 
 void	convert_map(t_data *game, char *av)
 {
-	int fd;
-	char *buf;
-	int i;
+	int		fd;
+	char	*buf;
+	int		i;
 
 	i = 0;
 	fd = open(av, O_RDONLY);

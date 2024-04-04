@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:49:17 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/04 11:22:09 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:06:53 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int	all_textures(t_data *game)
 
 int	cut_path(t_data *game, char *line, int count)
 {
-	int j;
-	int element;
-	char *path;
-	char *elements[6] = {"NO", "SO", "EA", "WE", "F", "C"};
+	int		j;
+	int		element;
+	char	*path;
+	char	*elements[6] = {"NO", "SO", "EA", "WE", "F", "C"};
 
 	element = find_elements(line);
 	j = ft_strstr(line, elements[element]);
@@ -73,7 +73,7 @@ int	cut_path(t_data *game, char *line, int count)
 void	get_textures(t_data *game, int fd)
 {
 	char	*temp;
-	int 	count;
+	int		count;
 	int		i;
 
 	i = 0;

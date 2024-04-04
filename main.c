@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:16:55 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/04 13:01:18 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/04 14:17:48 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	main(int ac, char **av)
 	t_data	*game;
 
 	if (ac != 2)
-		ft_exit(1, NB_ARG);
+		err(1, NB_ARG);
 	if (check_file(av[1]) == 0 || file_exist(av[1]) == 0)
-		ft_exit(1, EMPTY_FILE);
+		err(1, EMPTY_FILE);
 	game = init_struct();
 	convert_map(game, av[1]);
 	//verifier les wall

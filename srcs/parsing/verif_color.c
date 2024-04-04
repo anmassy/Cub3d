@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:06:11 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/04 13:06:32 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:07:35 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ int	comma(char *line)
 	return (1);
 }
 
-char *get_nb(char *line, char *temp, int i)
+char	*get_nb(char *line, char *temp, int i)
 {
 	int	j;
-	
+
 	j = 0;
 	temp = malloc(sizeof(char) * color_lenght(line, i) + 2);
 	if (!temp)
@@ -75,7 +75,7 @@ int	valid_color(char *line)
 	char	*number;
 	int		number_of_number;
 	int		i;
-	
+
 	i = 0;
 	number_of_number = 0;
 	if (comma(line) == 0)

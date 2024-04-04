@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:04:35 by anmassy           #+#    #+#             */
-/*   Updated: 2024/03/21 19:18:21 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:06:15 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	size_line(char *strings, int i)
 
 char	*get_next_line(int fd)
 {
-	static char *strings;
-	char *buffer;
-	char *line;
-	int ret;
+	static char	*strings;
+	char		*buffer;
+	char		*line;
+	int			ret;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:06:37 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/04 13:09:44 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:08:53 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*get_path(char *line, int j)
 		ft_exit(1, EMPTY_LINE);
 	path = malloc(sizeof(char) * len_path + 2);
 	if (!path)
-   		return (NULL);
+		return (NULL);
 	while (line[j] != '\n')
 	{
 		while (line[j] == ' ')
