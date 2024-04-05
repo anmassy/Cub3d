@@ -6,7 +6,7 @@
 #    By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 10:00:03 by anmassy           #+#    #+#              #
-#    Updated: 2024/04/03 20:17:19 by anmassy          ###   ########.fr        #
+#    Updated: 2024/04/05 20:03:39 by anmassy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,9 @@ SRC =	srcs/parsing/get_next_line_utils.c \
 		srcs/parsing/verif_color.c \
 		srcs/parsing/get_path.c \
 		srcs/parsing/ft_utils.c \
-		srcs/parsing/convert_map.c\
-		srcs/parsing/exit_fonction.c\
+		srcs/parsing/convert_map.c \
+		srcs/parsing/exit_fonction.c \
+		srcs/parsing/player_road.c \
 		srcs/raycasting/raycastings.c\
 		srcs/raycasting/dda.c\
 		srcs/raycasting/init.c\

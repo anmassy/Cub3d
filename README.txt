@@ -18,9 +18,8 @@ Pour la partie map il faut gerer :
 /OK\ -que la map ne soit pas trop petite (normalement cela se fait avec toutes les condition que l'on met)
 /OK\ -qu'il y est les bonne valeur "1, 0, N, S, E ,W"
 /OK\ -qu'il n'y est pas deux player mais qu'il y en ai au moins un
-a revoir -que la map soit bien entourer de mur peut importe la forme
+/OK\ -que la map soit bien entourer de mur peut importe la forme
 
 
-gerer les murs
 leak
 norme
