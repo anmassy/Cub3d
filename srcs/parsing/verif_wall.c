@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:01:46 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/05 20:02:32 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/05 22:35:11 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,38 @@ int	map_is_close(char **map)
 		i++;
 	}
 	return (1);
+}
+
+char **duplicate_map(char **original_map)
+{
+	int height;
+	int i;
+
+    i = 0;
+	height = get_height(original_map);
+    char **copy_map = malloc((height + 1) * sizeof(char *));
+    if (copy_map == NULL)
+        ft_exit(1, ERR_MALLOC);
+    while (i < height)
+	{
+        copy_map[i] = malloc(ft_strlen(original_map[i] + 1) * sizeof(char));
+        if (copy_map[i] == NULL) //free sortir clean
+            ft_exit(1, ERR_MALLOC);
+        copy_map[i] = ft_strdup(original_map[i]);
+		i++;
+    }
+    copy_map[height] = NULL;
+    return (copy_map);
+}
+
+void verif_wall(t_data *game)
+{
+	char **temp_map;
+	
+	temp_map = duplicate_map(game->val->m);
+	depth_first_check(temp_map, game->val->startX, game->val->startY);
+	if (map_is_close(temp_map) == 0)
+		ft_exit(1, ERR_WALL);
+	// display_map(game->val->m);
+	// display_map(temp_map);
 }

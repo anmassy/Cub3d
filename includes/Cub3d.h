@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/05 20:03:07 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/05 22:32:44 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,10 +237,16 @@ int    check_left(char **map, int x, int y);
 int    check_right(char **map, int x, int y);
 char    **depth_first_check(char **map, int x, int y);
 
+/* player_road.c */
 int	side(char **map, int i, int j);
 int	map_is_close(char **map);
 int skip_space(char *line);
 int get_height(char **map);
+
+
+char **duplicate_map(char **original_map);
+void verif_wall(t_data *game);
+
 
 
 /*raycast*/

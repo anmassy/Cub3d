@@ -1,22 +1,23 @@
-
-NO ./textures/red.xpm
-WE ./textures/purplestone.xpm
-EA ./textures/eagle.xpm
-SO ./textures/greyscale.xpm
+NO textures/red.xpm
+WE textures/purplestone.xpm
+EA textures/eagle.xpm
+SO textures/greyscale.xpm
 
 F 110,100,10
-C 200,30,20
+C 200,100,100
 
-
-101
-
-11   111
-11111111111111111111111111
-111111100N0000000000000001
-      1000000000011111111
-      10000000011
-      11111111111
-
-
-
-     1
+111      
+101     111
+1011    101
+10001   101
+100011111011
+100000000001111111
+100000000000000001
+100000N00001111111
+100000000001
+100000000001
+101111111011
+101     101
+101     101
+1011    111
+11111

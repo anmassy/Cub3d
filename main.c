@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:16:55 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/05 20:04:46 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/05 22:32:58 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ void	display_map(char **map)
 	int	i;
 
 	i = 0;
+	if (map == NULL)
+	{
+        printf("Map is NULL\n");
+        return;
+    }
 	while (map[i])
 	{
 		j = 0;
@@ -75,12 +80,8 @@ int	main(int ac, char **av)
 		err(1, EMPTY_FILE);
 	game = init_struct();
 	convert_map(game, av[1]);
-	/*penser a faire une copie de game->val->m*/
-	depth_first_check(game->val->m, game->val->startX, game->val->startY);
-	if (map_is_close(game->val->m) == 0)
-		ft_exit(1, ERR_WALL);
-	display_map(game->val->m);
+	verif_wall(game); //a voir pour le changer de place
 	start_game(game);
-	ft_free(game); //pas oublié de clean
+	// ft_free(game); //pas oublié de clean
 	return (0);
 }
