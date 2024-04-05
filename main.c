@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:16:55 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/04 14:17:48 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:37:33 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,18 @@ int	file_exist(char *path)
 		return (0);
 }
 
-void	display_map(t_data *game)
+void	display_map(char **map)
 {
 	int	j;
 	int	i;
 
 	i = 0;
-	while (game->val->m[i])
+	while (map[i])
 	{
 		j = 0;
-		while (game->val->m[i][j])
+		while (map[i][j])
 		{
-			printf("%c", game->val->m[i][j]);
+			printf("%c", map[i][j]);
 			j++;
 		}
 		printf("\n");
@@ -75,9 +75,11 @@ int	main(int ac, char **av)
 		err(1, EMPTY_FILE);
 	game = init_struct();
 	convert_map(game, av[1]);
-	//verifier les wall
-	display_map(game);
-	// start_game(game);
-	ft_free(game);
+	depth_first_check(game->val->m, game->val->startX, game->val->startY);
+	if (map_close(game->val->m) == 0)// pense a remettre la map comme avant
+		ft_exit(1, ERR_WALL);
+	// display_map(game->val->m);
+	start_game(game);
+	ft_free(game); //pas oublié de clean
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:16:08 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/03 15:01:48 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/05 16:51:56 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	set_null(t_data *game)
 	game->val->first_row = 0;
 	game->val->last_row = 0;
 	game->val->orientation = 0;
-	game->val->height = 0;
 	game->val->x = 0;
 	game->val->y = 0;
 }

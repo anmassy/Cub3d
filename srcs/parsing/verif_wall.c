@@ -3,79 +3,145 @@
 /*                                                        :::      ::::::::   */
 /*   verif_wall.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:01:46 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/03 04:40:21 by lmarchai         ###   ########.fr       */
+/*   Updated: 2024/04/05 19:20:18 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/Cub3d.h"
 
-int	check_up(t_data *game, int i, int j)
+int	check_wall(char **map, int i, int j)
 {
-	if (i == game->val->first_row)
+	if (i == 0 || i == 15)
 		return (0);
-	if (game->val->m[i - 1][j] != '1' && game->val->m[i - 1][j] != '0'
-		&& game->val->m[i - 1][j] != 'N' && game->val->m[i - 1][j] != 'S'
-		&& game->val->m[i - 1][j] != 'E' && game->val->m[i - 1][j] != 'W')
+	if (map[i - 1][j] != '1' && map[i - 1][j] != 'X')
 		return (0);
-	return (1);
+	else if (map[i + 1][j] != '1' && map[i + 1][j] != 'X')
+		return (0);
+    else if (map[i][j - 1] != '1' && map[i][j - 1] != 'X')
+		return (0);
+    else if (map[i][j + 1] != '1' && map[i][j + 1] != 'X')
+		return (0);
+    else
+	    return (1);
 }
 
-int	check_down(t_data *game, int i, int j)
-{
-	if (i == game->val->y)
-		return (0);
-	if (game->val->m[i + 1][j] != '1' && game->val->m[i + 1][j] != '0'
-		&& game->val->m[i + 1][j] != 'N' && game->val->m[i + 1][j] != 'S'
-		&& game->val->m[i + 1][j] != 'E' && game->val->m[i + 1][j] != 'W')
-		return (0);
-	return (1);
-}
-
-int	check_left(t_data *game, int i, int j)
-{
-	if (game->val->m[i][j - 1] != '1' && game->val->m[i][j - 1] != '0'
-		&& game->val->m[i][j - 1] != 'N' && game->val->m[i][j - 1] != 'S'
-		&& game->val->m[i][j - 1] != 'E' && game->val->m[i][j - 1] != 'W')
-		return (0);
-	return (1);
-}
-
-int	check_right(t_data *game, int i, int j)
-{
-	if (game->val->m[i][j + 1] != '1' && game->val->m[i][j + 1] != '0'
-		&& game->val->m[i][j + 1] != 'N' && game->val->m[i][j + 1] != 'S'
-		&& game->val->m[i][j + 1] != 'E' && game->val->m[i][j + 1] != 'W')
-		return (0);
-	return (1);
-}
-
-int	map_close(t_data *game)
+int	map_close(char **map)
 {
 	int i;
 	int j;
 
-	i = game->val->first_row;
-	while (game->val->m[i])
+	i = 0;
+	while (map[i])
 	{
 		j = 0;
-		while (game->val->m[i][j] && game->val->m[i][j] != '\n')
+		while (map[i][j] && map[i][j] != '\n')
 		{
-			if (game->val->m[i][j] == '0' || game->val->m[i][j] == 'N'
-				|| game->val->m[i][j] == 'S' || game->val->m[i][j] == 'E'
-				|| game->val->m[i][j] == 'W')
-				if (check_up(game, i, j) == 0 || check_down(game, i, j) == 0
-					|| check_left(game, i, j) == 0 || check_right(game, i,
-						j) == 0)
-				{
-					printf("the map is not closed\n");
+			if (map[i][j] == 'X')
+				if (check_wall(map, i, j) == 0)  
 					return (0);
-				}
 			j++;
 		}
 		i++;
 	}
 	return (1);
+}
+
+int skip_space(char *line)
+{
+    int i;
+
+    i = 0;
+    while(line[i] && line[i] == ' ')
+        i++;
+    return (i);
+}
+
+
+int get_height(char **map)
+{
+    int i;
+
+    i = 0;
+    while(map[i])
+        i++;
+    return (i);
+}
+
+int    check_up(char **map, int x, int y)
+{
+    int space;
+    
+    space = skip_space(map[y]);
+    if (y <= 0 || y >= get_height(map))
+        return (1);
+    if (x + 1 < space || x + 1 > ft_strlen(map[y]))
+        return (1);
+    if (map[y - 1][x] == '1' || map[y - 1][x] == 'X' || map[y - 1][x] == ' ' ||
+        map[y - 1][x] == '\n' || map[y - 1][x] == '\0')
+        return (1);
+    return (0);
+}
+
+int    check_down(char **map, int x, int y)
+{
+    int space;
+    
+    space = skip_space(map[y]);
+    if (y <= 0 || y >= get_height(map))
+        return (1);
+    if (x + 1 < space || x + 1 > ft_strlen(map[y]))
+        return (1);
+    if (map[y + 1][x] == '1' || map[y + 1][x] == 'X' || map[y + 1][x] == ' ' ||
+        map[y + 1][x] == '\n' || map[y + 1][x] == '\0')
+        return (1);
+    return (0);
+}
+
+int    check_left(char **map, int x, int y)
+{
+    int space;
+    
+    space = skip_space(map[y]);
+    if (y <= 0 || y >= get_height(map))
+        return (1);
+    if (x + 1 < space || x + 1 > ft_strlen(map[y]))
+        return (1);
+    if (map[y][x - 1] == '1' || map[y][x - 1] == 'X' || map[y][x - 1] == ' ' ||
+        map[y][x - 1] == '\n' || map[y][x - 1] == '\0')
+        return (1);
+    return (0);
+}
+
+
+int    check_right(char **map, int x, int y)
+{
+    int space;
+    
+    space = skip_space(map[y]);
+    if (y <= 0 || y >= get_height(map))
+        return (1);
+    if (x + 1 < space || x + 1 > ft_strlen(map[y]))
+        return (1);
+    if (map[y][x + 1] == '1' || map[y][x + 1] == 'X' || map[y][x + 1] == ' ' ||
+        map[y][x + 1] == '\n' || map[y][x + 1] == '\0')
+        return (1);
+    return (0);
+}
+
+
+char    **depth_first_check(char **map, int x, int y)
+{
+    map[y][x] = 'X';
+    if (check_left(map, x, y) == 0)
+        depth_first_check(map, x - 1, y);
+    if (check_up(map, x, y) == 0)
+        depth_first_check(map, x, y - 1);
+    if (check_right(map, x, y) == 0)
+        depth_first_check(map, x + 1, y);
+    if (check_down(map, x, y) == 0)
+        depth_first_check(map, x, y + 1);
+    return (map);
 }

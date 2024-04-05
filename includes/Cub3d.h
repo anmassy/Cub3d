@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/04 14:20:48 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/05 17:04:03 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define FLOOR_T "./images/floor_texture.xpm"
 # define CEILING_T "./images/ceiling_texture.xpm"
 
+
 /* KEYS */
 # define L 65363 //fleche de droite
 # define R 65361 //fleche de gauche
@@ -49,7 +50,7 @@
 # define ERR_PATH "path is invalid"
 # define ERR_COLOR "this color (RGP) does not exist"
 # define EMPTY_LINE "the line is empty"
-// # define ERR_FILE "fd incorect"
+# define ERR_WALL "the map is not closed"
 # define NB_ARG "number of arguments incorect"
 # define EMPTY_FILE "the file is empty or does not exist"
 # define ERR_MAP "the map is not well written"
@@ -62,7 +63,6 @@ typedef struct s_player
     int     first_row;
     int     last_row;
     char    orientation;
-    int     height;
 	double	startX;
 	double	startY;
     int     x;
@@ -127,15 +127,15 @@ typedef struct s_rayc
 
 typedef struct s_print
 {
-	int x;
-	int	y;
-	int lineheight;
-	int	drawstart;
-	int	drawend;
+	int 	x;
+	int		y;
+	int 	lineheight;
+	int		drawstart;
+	int		drawend;
 	double step;
 	double texPos;
-	int color;
-	int texY;
+	int 	color;
+	int 	texY;
 }	t_print;
 
 typedef struct  s_data
@@ -164,7 +164,7 @@ typedef enum
 # endif
 
 /* main.c */
-void	display_map(t_data *game);
+void	display_map(char **map);
 int		check_file(char *av);
 int		file_exist(char *path);
 
@@ -202,16 +202,18 @@ int		size_line(char *strings, int i);
 char	*get_next_line(int fd);
 
 /* ft_utils.c */
-int		ft_strncmp(char *s1, char *s2, size_t n);
 int		ft_strstr(char *str, char *to_find);
+int		ft_strncmp(char *s1, char *s2, size_t n);
 size_t	ft_strlcpy(char *dst, const char *src, size_t n);
 char	*ft_strdup(const char *s);
+int		ft_atoi(char *nptr);
+
+/* autre fonction utils */
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	*ft_realloc(void *ptr, size_t size);
-int		ft_atoi(char *nptr);
 
 /* init_struct.c */
 void	set_null(t_data *game);
@@ -229,8 +231,8 @@ int	valid_color(char *line);
 
 
 /* verif_wall.c */
-int	map_close(t_data *game);
-
+char    **depth_first_check(char **map, int x, int y);
+int	map_close(char **map);
 
 
 /*raycast*/
