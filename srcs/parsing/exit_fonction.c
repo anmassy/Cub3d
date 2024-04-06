@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:07:04 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/06 14:15:16 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/06 15:42:13 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 int	ft_exit(int nb, char *msg)
 {
 	printf("Error: %s\n", msg);
-	/*ajouter des free en plus*/
-	//ft_free(game);
 	exit(nb);
 }
 

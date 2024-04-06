@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:32:23 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/06 14:13:17 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/06 15:50:24 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,17 @@ void	convert_map(t_data *game, char *av)
 	i = 0;
 	fd = open(av, O_RDONLY);
 	game->val->m = NULL;
-	/*checké precedement, a verfier, apres c'est ube secu
 	if (fd == -1)
-		ft_exit(1, ERR_FILE);*/
+		ft_exit(1, EMPTY_FILE);
 	get_textures(game, fd);
 	buf = get_next_line(fd);
 	buf = pass_blank(buf, fd);
 	while (buf != NULL)
 	{
-		/* je l'ai enlevé car sinon je pouvais pas compte la map correctement car cela enlevais les ligne vide */
-		// if (ft_strlen(buf) > 1)
-		// {
 		game->val->m = dup_map(game->val->m, i);
 		game->val->m[i] = ft_strdup(buf);
 		if (!game->val->m[i])
 			ft_exit(1, ERR_MALLOC);
-		// }
 		game->val = check_start(game->val, game->val->m[i], i);
 		free(buf);
 		buf = get_next_line(fd);

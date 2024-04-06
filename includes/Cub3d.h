@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/06 12:00:41 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/06 15:50:15 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@
 # define EMPTY_FILE "the file is empty or does not exist"
 # define ERR_MAP "the map is not well written"
 # define ERR_PLAYER "number of players incorrect"
+
 
 
 typedef struct s_player
