@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/06 15:50:15 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/06 16:49:27 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,5 +279,6 @@ int		pass_to_comas(char *s, int nb);
 int		rgb(char *rgb);
 t_print	init_print(t_data *game);
 void	print_col(t_data *game, int x);
+void	free_game(t_data *game);
 
 #endif

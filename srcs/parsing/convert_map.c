@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:32:23 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/06 15:50:24 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/06 16:45:40 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 char	*pass_blank(char *temp, int fd)
 {
 	while (ft_strlen(temp) < 2)
+	{
+		free(temp);
 		temp = get_next_line(fd);
+	}
 	return (temp);
 }
 
@@ -92,7 +95,8 @@ void	convert_map(t_data *game, char *av)
 		buf = get_next_line(fd);
 		i++;
 	}
+	free(buf);
+	close(fd);
 	if (game->val->orientation == 0)
 		ft_exit(1, ERR_PLAYER);
-	close(fd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:29:49 by lmarchai          #+#    #+#             */
-/*   Updated: 2024/04/06 15:27:12 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/06 16:48:09 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void	init_direction_e_w(t_data *game)
 {
-	if(game->val->orientation == 'N')
+	if (game->val->orientation == 'N')
 		game->rayc.dirX = -1.000001;
-	if(game->val->orientation == 'S')
+	if (game->val->orientation == 'S')
 		game->rayc.dirX = 1.000001;;
-	if(game->val->orientation == 'E')
+	if (game->val->orientation == 'E')
 		game->rayc.dirY = 1.000001;;
-	if(game->val->orientation == 'W')
+	if (game->val->orientation == 'W')
 		game->rayc.dirY = -1.000001;;
-	if(game->val->orientation == 'N')
+	if (game->val->orientation == 'N')
 		game->rayc.planeY = 0.66;
-	if(game->val->orientation == 'S')
+	if (game->val->orientation == 'S')
 		game->rayc.planeY = -0.66;
-	if(game->val->orientation == 'E')
+	if (game->val->orientation == 'E')
 		game->rayc.planeX = 0.66;
-	if(game->val->orientation == 'W')
+	if (game->val->orientation == 'W')
 		game->rayc.planeX = -0.66;
 }
 
@@ -53,6 +53,10 @@ void	ft_init_texture(t_data *game)
 
 void	init_game(t_data *game)
 {
+	game->rayc.dirX = 0;
+	game->rayc.dirY = 0;
+	game->rayc.planeX = 0;
+	game->rayc.planeY = 0;
 	game->rayc.posX = game->val->startX + 0.5;
 	game->rayc.posY = game->val->startY + 0.5;
 	init_direction_e_w(game);
