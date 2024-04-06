@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:16:55 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/05 22:32:58 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/06 12:01:27 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	main(int ac, char **av)
 	game = init_struct();
 	convert_map(game, av[1]);
 	verif_wall(game); //a voir pour le changer de place
-	start_game(game);
-	// ft_free(game); //pas oublié de clean
+	// start_game(game);
+	ft_free(game); //pas oublié de clean
 	return (0);
 }

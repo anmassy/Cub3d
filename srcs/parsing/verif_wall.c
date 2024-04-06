@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:01:46 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/05 22:35:11 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/06 14:12:01 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int get_height(char **map)
 
 int	side(char **map, int i, int j)
 {
-	if (i == 0 || i == 15)
+	if (i == 0 || i == get_height(map))
 		return (0);
 	if (map[i - 1][j] != '1' && map[i - 1][j] != 'X')
 		return (0);
@@ -82,10 +82,9 @@ char **duplicate_map(char **original_map)
         ft_exit(1, ERR_MALLOC);
     while (i < height)
 	{
-        copy_map[i] = malloc(ft_strlen(original_map[i] + 1) * sizeof(char));
-        if (copy_map[i] == NULL) //free sortir clean
-            ft_exit(1, ERR_MALLOC);
         copy_map[i] = ft_strdup(original_map[i]);
+        if (copy_map[i] == NULL)
+            ft_exit(1, ERR_MALLOC);
 		i++;
     }
     copy_map[height] = NULL;
@@ -98,8 +97,11 @@ void verif_wall(t_data *game)
 	
 	temp_map = duplicate_map(game->val->m);
 	depth_first_check(temp_map, game->val->startX, game->val->startY);
+	// printf("ORIGINAL MAP :\n");
+	// display_map(game->val->m);
+	// printf("\nCOPY MAP :\n");
+	// display_map(temp_map);
 	if (map_is_close(temp_map) == 0)
 		ft_exit(1, ERR_WALL);
-	// display_map(game->val->m);
-	// display_map(temp_map);
+	free_map(temp_map);
 }
