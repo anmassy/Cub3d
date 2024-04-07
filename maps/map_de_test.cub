@@ -1,13 +1,10 @@
 NO textures/red.xpm
-WE textures/purplestone.xpm
-EA textures/eagle.xpm
 SO textures/greyscale.xpm
+EA textures/eagle.xpm
+WE textures/west.xpm
 
 F 110,100,10
 C 200,100,100
-
-
-
 
 111111111111
 100000000001111111
