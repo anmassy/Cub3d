@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_wall.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:01:46 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/08 15:12:16 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/08 16:03:24 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,7 @@ void	verif_wall(t_data *game)
 	if (game->val->orientation == 0)
 		ft_exit(game, 1, ERR_PLAYER);
 	temp_map = duplicate_map(game, game->val->m);
-	depth_first_check(temp_map, game->val->startX, game->val->startY);
-	display_map(temp_map);
+	depth_first_check(temp_map, game->val->startx, game->val->starty);
 	if (map_is_close(temp_map) == 0)
 	{
 		free_map(temp_map);

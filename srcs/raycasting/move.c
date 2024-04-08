@@ -6,7 +6,7 @@
 /*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:34:26 by lmarchai          #+#    #+#             */
-/*   Updated: 2024/04/03 16:35:25 by lmarchai         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:47:24 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,42 @@
 
 void	move_up(t_data *game)
 {
-	if (game->val->m[(int)(game->rayc.posY + game->rayc.dirY * \
-		game->rayc.movespeed)][(int)game->rayc.posX] != '1')
-		game->rayc.posY += game->rayc.dirY * game->rayc.movespeed;
-	if (game->val->m[(int)game->rayc.posY][(int)(game->rayc.posX + \
-		game->rayc.dirX * game->rayc.movespeed)] != '1')
-		game->rayc.posX += game->rayc.dirX * game->rayc.movespeed;
+	if (game->val->m[(int)(game->rayc.posy + game->rayc.diry * \
+		game->rayc.movespeed)][(int)game->rayc.posx] != '1')
+		game->rayc.posy += game->rayc.diry * game->rayc.movespeed;
+	if (game->val->m[(int)game->rayc.posy][(int)(game->rayc.posx + \
+		game->rayc.dirx * game->rayc.movespeed)] != '1')
+		game->rayc.posx += game->rayc.dirx * game->rayc.movespeed;
 }
 
 void	move_down(t_data *game)
 {
-	if (game->val->m[(int)(game->rayc.posY - game->rayc.dirY * \
-		game->rayc.movespeed)][(int)game->rayc.posX] != '1')
-		game->rayc.posY -= game->rayc.dirY * game->rayc.movespeed;
-	if (game->val->m[(int)game->rayc.posY][(int)(game->rayc.posX - \
-		game->rayc.dirX * game->rayc.movespeed)] != '1')
-		game->rayc.posX -= game->rayc.dirX * game->rayc.movespeed;
+	if (game->val->m[(int)(game->rayc.posy - game->rayc.diry * \
+		game->rayc.movespeed)][(int)game->rayc.posx] != '1')
+		game->rayc.posy -= game->rayc.diry * game->rayc.movespeed;
+	if (game->val->m[(int)game->rayc.posy][(int)(game->rayc.posx - \
+		game->rayc.dirx * game->rayc.movespeed)] != '1')
+		game->rayc.posx -= game->rayc.dirx * game->rayc.movespeed;
 }
 
 void	move_left(t_data *game)
 {
-	if (game->val->m[(int)(game->rayc.posY + game->rayc.dirX * \
-		game->rayc.movespeed)][(int)game->rayc.posX] != '1')
-		game->rayc.posY += game->rayc.dirX * game->rayc.movespeed;
-	if (game->val->m[(int)game->rayc.posY][(int)(game->rayc.posX - \
-		game->rayc.dirY * game->rayc.movespeed)] != '1')
-		game->rayc.posX -= game->rayc.dirY * game->rayc.movespeed;
+	if (game->val->m[(int)(game->rayc.posy + game->rayc.dirx * \
+		game->rayc.movespeed)][(int)game->rayc.posx] != '1')
+		game->rayc.posy += game->rayc.dirx * game->rayc.movespeed;
+	if (game->val->m[(int)game->rayc.posy][(int)(game->rayc.posx - \
+		game->rayc.diry * game->rayc.movespeed)] != '1')
+		game->rayc.posx -= game->rayc.diry * game->rayc.movespeed;
 }
 
 void	move_right(t_data *game)
 {
-	if (game->val->m[(int)(game->rayc.posY - game->rayc.dirX * \
-		game->rayc.movespeed)][(int)game->rayc.posX] != '1')
-		game->rayc.posY -= game->rayc.dirX * game->rayc.movespeed;
-	if (game->val->m[(int)game->rayc.posY][(int)(game->rayc.posX + \
-		game->rayc.dirY * game->rayc.movespeed)] != '1')
-		game->rayc.posX += game->rayc.dirY * game->rayc.movespeed;
+	if (game->val->m[(int)(game->rayc.posy - game->rayc.dirx * \
+		game->rayc.movespeed)][(int)game->rayc.posx] != '1')
+		game->rayc.posy -= game->rayc.dirx * game->rayc.movespeed;
+	if (game->val->m[(int)game->rayc.posy][(int)(game->rayc.posx + \
+		game->rayc.diry * game->rayc.movespeed)] != '1')
+		game->rayc.posx += game->rayc.diry * game->rayc.movespeed;
 }
 
 void	move(t_data *game)

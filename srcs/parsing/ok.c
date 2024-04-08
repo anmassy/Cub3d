@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ok.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:12:53 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/08 15:21:36 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/08 16:03:13 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*pass_blank(t_data *game, char *temp)
 {
 	while (ft_strlen(temp) < 2 && ft_strlen(temp) > 0)
 	{
-		printf("pouet\n");
 		free(temp);
 		temp = get_next_line(game->fd);
 	}

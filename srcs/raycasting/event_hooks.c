@@ -6,7 +6,7 @@
 /*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:36:28 by lmarchai          #+#    #+#             */
-/*   Updated: 2024/04/06 16:46:57 by lmarchai         ###   ########.fr       */
+/*   Updated: 2024/04/08 10:14:15 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	key_hook(int key, void *dt)
 	if (key == R)
 		game->rayc.move_cam_right = 1;
 	if (key == ESC)
-		free_game(game);
+		free_game(game, NULL, 0);
 	return (1);
 }
 
@@ -56,6 +56,6 @@ int	key_release(int key, void *dt)
 
 int	handle_click_end(t_data *game)
 {
-	free_game(game);
+	free_game(game, NULL, 0);
 	return (0);
 }

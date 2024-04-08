@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:57:45 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/08 15:32:49 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:53:14 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # define FLOOR_T "./images/floor_texture.xpm"
 # define CEILING_T "./images/ceiling_texture.xpm"
 /* KEYS */
-# define L 65363 // fleche de droite
-# define R 65361 // fleche de gauche
+# define L 65361
+# define R 65363
 # define S 119
 # define D 100
 # define W 115
@@ -52,6 +52,10 @@
 # define ERR_MAP "the map is not correctly written"
 # define ERR_PLAYER "number of players incorrect"
 # define MAP_ERROR "character after map end"
+# define ERR_MLX_IMG "mlx_new_image failed"
+# define ERR_MLX_ADDR "mlx_get_addr of an image failed"
+# define ERR_MLX_INIT "mlx_init failed"
+# define ERR_MLX_NEW_WIN "mlx_new_window failed"
 
 typedef struct s_player
 {
@@ -59,8 +63,8 @@ typedef struct s_player
 	int					first_row;
 	int					last_row;
 	char				orientation;
-	double				startX;
-	double				startY;
+	double				startx;
+	double				starty;
 	int					x;
 	int					y;
 }						t_player;
@@ -88,31 +92,31 @@ typedef struct s_img
 
 typedef struct s_rayc
 {
-	double				posX;
-	double				posY;
-	double				dirX;
-	double				dirY;
-	double				planeX;
-	double				planeY;
-	double				cameraX;
-	double				rayDirX;
-	double				rayDirY;
-	int					mapX;
-	int					mapY;
-	double				sideDistX;
-	double				sideDistY;
-	double				deltaDistX;
-	double				deltaDistY;
-	int					stepX;
-	int					stepY;
+	double				posx;
+	double				posy;
+	double				dirx;
+	double				diry;
+	double				planex;
+	double				planey;
+	double				camerax;
+	double				raydirx;
+	double				raydiry;
+	int					mapx;
+	int					mapy;
+	double				sidedistx;
+	double				sidedisty;
+	double				deltadistx;
+	double				deltadisty;
+	int					stepx;
+	int					stepy;
 	int					hit;
 	int					side;
-	double				perpWallDist;
+	double				perpwalldist;
 	double				movespeed;
 	double				rotspeed;
-	int					textDir;
-	double				wallX;
-	int					texX;
+	int					textdir;
+	double				wallx;
+	int					texx;
 	int					move_up;
 	int					move_down;
 	int					move_left;
@@ -129,9 +133,9 @@ typedef struct s_print
 	int					drawstart;
 	int					drawend;
 	double				step;
-	double				texPos;
+	double				texpos;
 	int					color;
-	int					texY;
+	int					texy;
 }						t_print;
 
 typedef struct s_data
@@ -146,7 +150,7 @@ typedef struct s_data
 	void				*win_ptr;
 }						t_data;
 
-typedef enum
+typedef enum elements
 {
 	NO = 0,
 	SO = 1,
@@ -154,7 +158,7 @@ typedef enum
 	WE = 3,
 	F = 4,
 	C = 5
-}						elements;
+}			t_elements;
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100
@@ -273,6 +277,6 @@ int						pass_to_comas(char *s, int nb);
 int						rgb(char *rgb);
 t_print					init_print(t_data *game);
 void					print_col(t_data *game, int x);
-void					free_game(t_data *game);
+void					free_game(t_data *game, char *p, int ex);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:32:22 by lmarchai          #+#    #+#             */
-/*   Updated: 2024/04/06 16:49:02 by lmarchai         ###   ########.fr       */
+/*   Updated: 2024/04/08 10:10:00 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	destroy_textures(t_data *game)
 	free(game->text);
 }
 
-void	free_game(t_data *game)
+void	free_game(t_data *game, char *p, int ex)
 {
 	if (game->mlx_ptr != NULL)
 	{
@@ -37,7 +37,9 @@ void	free_game(t_data *game)
 		free(game->mlx_ptr);
 	}
 	ft_free(game);
-	exit(1);
+	if (ex == 1)
+		printf("%s\n", p);
+	exit(ex);
 }
 
 int	hook(void *dt)
@@ -49,11 +51,11 @@ int	hook(void *dt)
 		mlx_destroy_image(game->mlx_ptr, game->img.mlx_img);
 	game->img.mlx_img = mlx_new_image(game->mlx_ptr, SCREENWIDTH, SCREENHEIGHT);
 	if (!game->img.mlx_img)
-		free_game(game);
+		free_game(game, ERR_MLX_IMG, 1);
 	game->img.addr = (int *)mlx_get_data_addr(game->img.mlx_img, \
 		&game->img.bpp, &game->img.line_len, &game->img.endian);
 	if (!game->img.addr)
-		free_game(game);
+		free_game(game, ERR_MLX_ADDR, 1);
 	raycast(game);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, \
 		game->img.mlx_img, 0, 0);
@@ -65,12 +67,12 @@ void	start_game(t_data *game)
 {
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
-		free_game(game);
+		free_game(game, ERR_MLX_INIT, 1);
 	init_game(game);
 	game->win_ptr = mlx_new_window(game->mlx_ptr, \
 		SCREENWIDTH, SCREENHEIGHT, "Cub3d");
 	if (!game->win_ptr)
-		free_game(game);
+		free_game(game, ERR_MLX_NEW_WIN, 1);
 	mlx_hook(game->win_ptr, 2, 1L << 0, key_hook, game);
 	mlx_hook(game->win_ptr, 3, 1L << 1, key_release, game);
 	mlx_loop_hook(game->mlx_ptr, &hook, game);

@@ -6,7 +6,7 @@
 /*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:33:02 by lmarchai          #+#    #+#             */
-/*   Updated: 2024/04/03 16:35:42 by lmarchai         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:51:04 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_print	init_print(t_data *game)
 	t_print	p;
 
 	p.y = 0;
-	p.lineheight = (int)SCREENHEIGHT / game->rayc.perpWallDist;
+	p.lineheight = (int)SCREENHEIGHT / game->rayc.perpwalldist;
 	p.drawstart = (-1 * p.lineheight) / 2 + SCREENHEIGHT / 2;
 	if (p.drawstart < 0)
 		p.drawstart = 0;
@@ -53,16 +53,16 @@ t_print	init_print(t_data *game)
 	if (p.drawend >= SCREENHEIGHT)
 		p.drawend = SCREENHEIGHT - 1;
 	ft_init_texture(game);
-	game->rayc.texX = (int)(game->rayc.wallX \
-		* (double)game->text[game->rayc.textDir].width);
-	if (game->rayc.side == 0 && game->rayc.rayDirX > 0)
-		game->rayc.texX = game->text[game->rayc.textDir].width \
-			- game->rayc.texX - 1;
-	if (game->rayc.side == 1 && game->rayc.rayDirY < 0)
-		game->rayc.texX = game->text[game->rayc.textDir].width \
-			- game->rayc.texX - 1;
-	p.step = 1.0 * game->text[game->rayc.textDir].height / p.lineheight;
-	p.texPos = (p.drawstart - SCREENHEIGHT / 2 + p.lineheight / 2) * p.step;
+	game->rayc.texx = (int)(game->rayc.wallx \
+		* (double)game->text[game->rayc.textdir].width);
+	if (game->rayc.side == 0 && game->rayc.raydirx > 0)
+		game->rayc.texx = game->text[game->rayc.textdir].width \
+			- game->rayc.texx - 1;
+	if (game->rayc.side == 1 && game->rayc.raydiry < 0)
+		game->rayc.texx = game->text[game->rayc.textdir].width \
+			- game->rayc.texx - 1;
+	p.step = 1.0 * game->text[game->rayc.textdir].height / p.lineheight;
+	p.texpos = (p.drawstart - SCREENHEIGHT / 2 + p.lineheight / 2) * p.step;
 	return (p);
 }
 
@@ -75,12 +75,12 @@ void	print_col(t_data *game, int x)
 	{
 		if (p.y >= p.drawstart && p.y <= p.drawend)
 		{
-			p.texY = (int)p.texPos & \
-				(game->text[game->rayc.textDir].height - 1);
-			p.texPos += p.step;
-			p.color = game->text[game->rayc.textDir].addr[p.texY \
-				* game->text[game->rayc.textDir].line_len / 4 \
-				+ game->rayc.texX];
+			p.texy = (int)p.texpos & \
+				(game->text[game->rayc.textdir].height - 1);
+			p.texpos += p.step;
+			p.color = game->text[game->rayc.textdir].addr[p.texy \
+				* game->text[game->rayc.textdir].line_len / 4 \
+				+ game->rayc.texx];
 			game->img.addr[p.y * game->img.line_len / 4 + x] = p.color;
 		}
 		else if (p.y > p.drawend)

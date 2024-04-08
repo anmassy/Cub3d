@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:32:23 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/08 15:30:42 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:49:46 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ struct s_player	*check_start(t_data *game, struct s_player *m, char *s, int y)
 		check_char(game, m, s[i]);
 		if (s[i] == 'N' || s[i] == 'S' || s[i] == 'E' || s[i] == 'W')
 		{
-			m->startY = (double)y;
-			m->startX = (double)i;
+			m->starty = (double)y;
+			m->startx = (double)i;
 		}
 		if (s[i] == 'N')
 			m->orientation = 'N';
