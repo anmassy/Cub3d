@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:49:17 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/07 21:41:02 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:10:32 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,46 +44,68 @@ int	all_textures(t_data *game)
 	return (0);
 }
 
+int	ft_digit_and_comma(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if ((line[i] >= '0' && line[i] <= '9') || line[i] == ',')
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
+
 int	cut_path(t_data *game, char *line, int count)
 {
-	int		j;
-	int		element;
-	char	*path;
-	char	*elements[6] = {"NO", "SO", "EA", "WE", "F", "C"};
+	int			j;
+	int			element;
+	char		*path;
+	const char	*elements[6] = {"NO", "SO", "EA", "WE", "F", "C"};
 
+	if (!line)
+		return (0);
 	element = find_elements(line);
-	j = ft_strstr(line, elements[element]);
+	j = ft_strstr(line, (char *)elements[element]);
 	if (line[j] != '\n' && line[j] != '\0' && j == 0)
-		ft_exit(1, ERR_ELEMENT);
-	path = get_path(line, j);
+		return (free(line), close_and_free(game, ERR_ELEMENT));
+	path = get_path(game, line, j);
 	if (path != NULL)
 	{
-		if ((element >= 0 && element <= 3) && (path_xpm(path) == 0
-				|| file_exist(path) == 0))
-			ft_exit(1, ERR_PATH);
-		else if (element >= 4 && valid_color(path) == 0)
-			ft_exit(1, ERR_COLOR);
-		set_path(game, path, elements[element]);
+		if ((element >= 0 && element <= 3) && (path_xpm(path) == 0 \
+		|| file_exist(path) == 0))
+			return (free(path), free(line), close_and_free(game, ERR_PATH));
+		else if (element >= 4 && (ft_digit_and_comma(path) == 0 \
+		|| valid_color(path) == 0))
+			return (free(path), free(line), close_and_free(game, ERR_COLOR));
+		set_path(game, path, (char *)elements[element]);
 		count++;
 	}
 	return (count);
 }
 
-void	get_textures(t_data *game, int fd)
+void	get_textures(t_data *game)
 {
 	char	*temp;
 	int		count;
 	int		i;
 
 	i = 0;
+	temp = NULL;
 	count = 0;
 	while (all_textures(game) != 0)
 	{
-		temp = get_next_line(fd);
+		temp = get_next_line(game->fd);
 		count = cut_path(game, temp, count);
 		free(temp);
-		if (count > 6)
-			ft_exit(1, ERR_ELEMENT);
+		if (count > 6 || (i > 6 && count == 0))
+		{
+			close(game->fd);
+			ft_exit(game, 1, ERR_ELEMENT);
+		}
 		i++;
 	}
 }

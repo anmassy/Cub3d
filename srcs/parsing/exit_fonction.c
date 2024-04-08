@@ -3,25 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   exit_fonction.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:07:04 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/06 16:46:07 by lmarchai         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:25:15 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/Cub3d.h"
 
-int	ft_exit(int nb, char *msg)
+int	ft_exit(t_data *game, int nb, char *msg)
 {
 	printf("Error: %s\n", msg);
+	ft_free(game);
 	exit(nb);
 }
 
-int	err(int nb, char *msg)
+int	close_and_free(t_data *game, char *msg)
 {
-	printf("Error: %s\n", msg);
-	exit(nb);
+	close(game->fd);
+	ft_exit(game, 1, msg);
+	return (0);
+}
+
+char	*cclose_and_free(t_data *game, char *msg)
+{
+	close(game->fd);
+	ft_exit(game, 1, msg);
+	return (0);
 }
 
 void	free_map(char **map)
@@ -48,7 +57,8 @@ void	ft_free(t_data *game)
 		free(game->mesh->s_path);
 	if (game->mesh->w_path != NULL)
 		free(game->mesh->w_path);
-	free_map(game->val->m);
+	if (game->val->m != NULL)
+		free_map(game->val->m);
 	free(game->val);
 	free(game->mesh);
 	free(game);

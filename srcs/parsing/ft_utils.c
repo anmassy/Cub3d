@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:07:46 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/05 21:45:02 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/08 11:35:21 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	ft_strstr(char *str, char *to_find)
 
 	c = 0;
 	d = 0;
+	if (!str || !to_find)
+		return (0);
 	if (to_find[0] == '\0')
 		return (0);
 	while (str[c])
@@ -101,69 +103,4 @@ char	*ft_strdup(const char *s)
 		return (NULL);
 	ft_strlcpy(dest, s, len + 1);
 	return (dest);
-}
-
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	unsigned char		*d;
-	const unsigned char	*s;
-
-	d = dest;
-	s = src;
-	while (n--)
-		*d++ = *s++;
-	return (dest);
-}
-
-void	*ft_memset(void *s, int c, size_t n)
-{
-	long unsigned int	i;
-
-	i = 0;
-	while (i < n)
-	{
-		((unsigned char *)s)[i] = (unsigned char)c;
-		i++;
-	}
-	return (s);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	ft_memset(s, 0, n);
-}
-
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*ptr;
-
-	if ((nmemb * size) == 0)
-		return (malloc(0));
-	if ((nmemb * size) < nmemb)
-		return (0);
-	ptr = malloc(nmemb * size);
-	if (ptr == NULL)
-		return (NULL);
-	ft_bzero(ptr, nmemb * size);
-	return (ptr);
-}
-
-void	*ft_realloc(void *ptr, size_t size)
-{
-	void	*new_ptr;
-
-	if (size == 0)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	new_ptr = ft_calloc(size, '1');
-	if (!new_ptr)
-		return (NULL);
-	if (ptr)
-	{
-		ft_memcpy(new_ptr, ptr, size);
-		free(ptr);
-	}
-	return (new_ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:06:11 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/04 15:07:35 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/08 12:56:46 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*get_nb(char *line, char *temp, int i)
 		if ((line[i] >= '0' && line[i] <= '9') || line[i] == '-')
 			temp[j++] = line[i++];
 		else
-			return (0);
+			return (free(temp), NULL);
 	}
 	temp[j] = '\0';
 	return (temp);
@@ -84,7 +84,10 @@ int	valid_color(char *line)
 	{
 		number = get_nb(line, number, i);
 		if (range_color(ft_atoi(number)) == 0)
+		{
+			free(number);
 			return (0);
+		}
 		number_of_number++;
 		i += ft_strlen(number);
 		if (line[i] != '\0')

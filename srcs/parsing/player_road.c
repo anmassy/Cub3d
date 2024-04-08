@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:02:12 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/06 15:38:12 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/08 14:50:46 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	check_up(char **map, int x, int y)
 	int	space;
 
 	space = skip_space(map[y]);
-	if (y <= 0 || y >= get_height(map))
+	if (y - 1 <= 0 || y - 1 >= get_height(map))
 		return (1);
-	if (x + 1 < space || x + 1 > ft_strlen(map[y]))
+	if (x < space || x > ft_strlen(map[y]))
 		return (1);
 	if (map[y - 1][x] == '1' || map[y - 1][x] == 'X' || map[y - 1][x] == ' ' ||
 		map[y - 1][x] == '\n' || map[y - 1][x] == '\0')
@@ -32,9 +32,9 @@ int	check_down(char **map, int x, int y)
 	int	space;
 
 	space = skip_space(map[y]);
-	if (y <= 0 || y >= get_height(map))
+	if (y + 1 <= 0 || y + 1 >= get_height(map))
 		return (1);
-	if (x + 1 < space || x + 1 > ft_strlen(map[y]))
+	if (x < space || x > ft_strlen(map[y]))
 		return (1);
 	if (map[y + 1][x] == '1' || map[y + 1][x] == 'X' || map[y + 1][x] == ' ' ||
 		map[y + 1][x] == '\n' || map[y + 1][x] == '\0')
@@ -49,7 +49,7 @@ int	check_left(char **map, int x, int y)
 	space = skip_space(map[y]);
 	if (y <= 0 || y >= get_height(map))
 		return (1);
-	if (x + 1 < space || x + 1 > ft_strlen(map[y]))
+	if (x - 1 < space || x - 1 > ft_strlen(map[y]))
 		return (1);
 	if (map[y][x - 1] == '1' || map[y][x - 1] == 'X' || map[y][x - 1] == ' ' ||
 		map[y][x - 1] == '\n' || map[y][x - 1] == '\0')

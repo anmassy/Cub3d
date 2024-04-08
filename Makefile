@@ -6,22 +6,23 @@
 #    By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 10:00:03 by anmassy           #+#    #+#              #
-#    Updated: 2024/04/05 20:03:39 by anmassy          ###   ########.fr        #
+#    Updated: 2024/04/08 15:14:06 by anmassy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-SRC =	srcs/parsing/get_next_line_utils.c \
-		srcs/parsing/get_next_line.c \
+SRC =	srcs/parsing/get_next_line.c \
 		srcs/parsing/init_struct.c \
 		srcs/parsing/verif_texture.c \
 		srcs/parsing/verif_wall.c \
 		srcs/parsing/verif_color.c \
 		srcs/parsing/get_path.c \
 		srcs/parsing/ft_utils.c \
+		srcs/parsing/ft_mem.c \
 		srcs/parsing/convert_map.c \
 		srcs/parsing/exit_fonction.c \
 		srcs/parsing/player_road.c \
+		srcs/parsing/ok.c \
 		srcs/raycasting/raycastings.c\
 		srcs/raycasting/dda.c\
 		srcs/raycasting/init.c\

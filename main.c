@@ -6,7 +6,7 @@
 /*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:16:55 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/06 18:05:12 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:25:23 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ void	display_map(char **map)
 		printf("\n");
 		i++;
 	}
+}
+
+int	err(int nb, char *msg)
+{
+	printf("Error: %s\n", msg);
+	exit(nb);
 }
 
 int	main(int ac, char **av)
