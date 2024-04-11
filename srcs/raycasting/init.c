@@ -6,7 +6,7 @@
 /*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:29:49 by lmarchai          #+#    #+#             */
-/*   Updated: 2024/04/08 15:55:14 by lmarchai         ###   ########.fr       */
+/*   Updated: 2024/04/11 00:52:17 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,35 @@
 
 void	init_direction_e_w(t_data *game)
 {
-	if (game->val->orientation == 'N')
+	printf("%c\n", game->val->orientation);
+	if (game->val->orientation == 'W')
 		game->rayc.dirx = -1.001001;
-	if (game->val->orientation == 'S')
+	if (game->val->orientation == 'E')
 		game->rayc.dirx = 1.001001;
-	if (game->val->orientation == 'E')
-		game->rayc.diry = 1.001001;
-	if (game->val->orientation == 'W')
-		game->rayc.diry = -1.001001;
-	if (game->val->orientation == 'N')
-		game->rayc.planey = 0.66;
 	if (game->val->orientation == 'S')
-		game->rayc.planey = -0.66;
-	if (game->val->orientation == 'E')
-		game->rayc.planex = 0.66;
+		game->rayc.diry = 1.001001;
+	if (game->val->orientation == 'N')
+		game->rayc.diry = -1.001001;
 	if (game->val->orientation == 'W')
+		game->rayc.planey = 0.66;
+	if (game->val->orientation == 'E')
+		game->rayc.planey = -0.66;
+	if (game->val->orientation == 'S')
+		game->rayc.planex = 0.66;
+	if (game->val->orientation == 'N')
 		game->rayc.planex = -0.66;
 }
 
 void	ft_init_texture(t_data *game)
 {
 	if (game->rayc.side == 0 && game->rayc.raydirx < 0)
-		game->rayc.textdir = 2;
-	if (game->rayc.side == 0 && game->rayc.raydirx >= 0)
-		game->rayc.textdir = 3;
-	if (game->rayc.side == 1 && game->rayc.raydiry < 0)
 		game->rayc.textdir = 0;
-	if (game->rayc.side == 1 && game->rayc.raydiry >= 0)
+	if (game->rayc.side == 0 && game->rayc.raydirx >= 0)
 		game->rayc.textdir = 1;
+	if (game->rayc.side == 1 && game->rayc.raydiry < 0)
+		game->rayc.textdir = 3;
+	if (game->rayc.side == 1 && game->rayc.raydiry >= 0)
+		game->rayc.textdir = 2;
 	if (game->rayc.side == 0)
 		game->rayc.wallx = game->rayc.posy + game->rayc.perpwalldist \
 						* game->rayc.raydiry;

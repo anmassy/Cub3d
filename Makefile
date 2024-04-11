@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+         #
+#    By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 10:00:03 by anmassy           #+#    #+#              #
-#    Updated: 2024/04/08 15:14:06 by anmassy          ###   ########.fr        #
+#    Updated: 2024/04/11 00:39:20 by lmarchai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRC =	srcs/parsing/get_next_line.c \
 
 OBJ = $(SRC:.c=.o)
 
-NAME = Cub3d
+HEADER = ./includes/Cub3d.h
+NAME = cub3D
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -gdwarf-4
 RM = rm -f
@@ -49,7 +50,7 @@ all : $(NAME)
 %.o: %.c
 	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HEADER)
 	@$(MAKE) -C mlx_linux 
 	@$(CC) $(CFLAGS) $(INCS) $(OBJ) $(LIBC) mlx_linux/libmlx.a $(MLX_FLAGS) -o $(NAME) 
 

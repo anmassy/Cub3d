@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:16:55 by anmassy           #+#    #+#             */
-/*   Updated: 2024/04/08 15:25:23 by anmassy          ###   ########.fr       */
+/*   Updated: 2024/04/08 16:43:29 by lmarchai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	display_map(char **map)
 	i = 0;
 	if (map == NULL)
 	{
-        printf("Map is NULL\n");
-        return;
-    }
+		printf("Map is NULL\n");
+		return ;
+	}
 	while (map[i])
 	{
 		j = 0;
