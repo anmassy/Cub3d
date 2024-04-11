@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmarchai <lmarchai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anmassy <anmassy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:29:49 by lmarchai          #+#    #+#             */
-/*   Updated: 2024/04/11 00:52:17 by lmarchai         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:16:55 by anmassy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_direction_e_w(t_data *game)
 		game->rayc.planex = -0.66;
 }
 
-void	ft_init_texture(t_data *game)
+void	ft_init_n_s(t_data *game)
 {
 	if (game->rayc.side == 0 && game->rayc.raydirx < 0)
 		game->rayc.textdir = 0;
@@ -50,6 +50,33 @@ void	ft_init_texture(t_data *game)
 		game->rayc.wallx = game->rayc.posx + game->rayc.perpwalldist \
 						* game->rayc.raydirx;
 	game->rayc.wallx -= floor((game->rayc.wallx));
+}
+
+void	ft_init_e_w(t_data *game)
+{
+	if (game->rayc.side == 0 && game->rayc.raydirx < 0)
+		game->rayc.textdir = 1;
+	if (game->rayc.side == 0 && game->rayc.raydirx >= 0)
+		game->rayc.textdir = 0;
+	if (game->rayc.side == 1 && game->rayc.raydiry < 0)
+		game->rayc.textdir = 2;
+	if (game->rayc.side == 1 && game->rayc.raydiry >= 0)
+		game->rayc.textdir = 3;
+	if (game->rayc.side == 0)
+		game->rayc.wallx = game->rayc.posy + game->rayc.perpwalldist \
+						* game->rayc.raydiry;
+	else
+		game->rayc.wallx = game->rayc.posx + game->rayc.perpwalldist \
+						* game->rayc.raydirx;
+	game->rayc.wallx -= floor((game->rayc.wallx));
+}
+
+void	ft_init_texture(t_data *game)
+{
+	if (game->val->orientation == 'N' || game->val->orientation == 'S')
+		ft_init_n_s(game);
+	else
+		ft_init_e_w(game);
 }
 
 void	init_game(t_data *game)
